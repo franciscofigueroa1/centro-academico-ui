@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
   </head>
   <body>
     <div class="app-layout">
@@ -117,11 +118,18 @@
                 <p class="eyebrow">Lo que viene</p>
                 <h2 id="week-title">Esta semana</h2>
               </div>
-              <span class="week-badge">3 eventos</span>
+              <span id="agenda-count" class="week-badge" aria-live="polite">3 eventos</span>
+            </div>
+
+            <div class="agenda-filters" role="group" aria-label="Filtrar agenda por tipo">
+              <button class="agenda-filter" type="button" data-event-filter="all" aria-pressed="true">Todos</button>
+              <button class="agenda-filter" type="button" data-event-filter="entrega" aria-pressed="false">Entregas</button>
+              <button class="agenda-filter" type="button" data-event-filter="clase" aria-pressed="false">Clases</button>
+              <button class="agenda-filter" type="button" data-event-filter="evaluacion" aria-pressed="false">Evaluaciones</button>
             </div>
 
             <div class="event-list">
-              <article class="event-item">
+              <article class="event-item" data-event-category="entrega">
                 <time class="event-date" datetime="2026-11-24">
                   <span>MAR</span>
                   <strong>24</strong>
@@ -133,7 +141,7 @@
                 </div>
               </article>
 
-              <article class="event-item">
+              <article class="event-item" data-event-category="clase">
                 <time class="event-date" datetime="2026-11-26">
                   <span>JUE</span>
                   <strong>26</strong>
@@ -145,7 +153,7 @@
                 </div>
               </article>
 
-              <article class="event-item">
+              <article class="event-item" data-event-category="evaluacion">
                 <time class="event-date" datetime="2026-11-27">
                   <span>VIE</span>
                   <strong>27</strong>

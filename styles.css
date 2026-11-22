@@ -378,6 +378,36 @@ h2 {
   font-weight: 600;
 }
 
+.agenda-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: -4px 0 10px;
+}
+
+.agenda-filter {
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.agenda-filter[aria-pressed="true"] {
+  border-color: #e2d5f2;
+  background: var(--violet-soft);
+  color: var(--violet-dark);
+  font-weight: 600;
+}
+
+.agenda-filter:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 2px;
+}
+
 .event-list {
   display: grid;
 }
@@ -387,6 +417,10 @@ h2 {
   gap: 12px;
   padding: 13px 0;
   border-top: 1px solid #f1eef5;
+}
+
+.event-item[hidden] {
+  display: none;
 }
 
 .event-item:first-child {

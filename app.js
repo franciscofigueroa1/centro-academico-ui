@@ -26,3 +26,30 @@ if (searchInput && emptyState) {
     emptyState.hidden = visibleCount > 0;
   });
 }
+
+const eventFilters = [...document.querySelectorAll("[data-event-filter]")];
+const agendaEvents = [...document.querySelectorAll("[data-event-category]")];
+const agendaCount = document.querySelector("#agenda-count");
+
+if (eventFilters.length && agendaEvents.length) {
+  for (const filterButton of eventFilters) {
+    filterButton.addEventListener("click", () => {
+      const selectedFilter = filterButton.dataset.eventFilter;
+      let visibleEvents = 0;
+
+      for (const eventItem of agendaEvents) {
+        const isVisible = selectedFilter === "all" || eventItem.dataset.eventCategory === selectedFilter;
+        eventItem.hidden = !isVisible;
+        if (isVisible) visibleEvents += 1;
+      }
+
+      for (const button of eventFilters) {
+        button.setAttribute("aria-pressed", String(button === filterButton));
+      }
+
+      if (agendaCount) {
+        agendaCount.textContent = `${visibleEvents} ${visibleEvents === 1 ? "evento" : "eventos"}`;
+      }
+    });
+  }
+}
