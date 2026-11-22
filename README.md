@@ -1,10 +1,10 @@
 # Centro académico
 
-Maqueta funcional en HTML, CSS y JavaScript para reunir en un solo lugar las asignaturas, tareas, notas y agenda del semestre.
+Maqueta web en HTML, CSS y JavaScript para reunir en un solo lugar las asignaturas, tareas, notas y agenda del semestre.
 
 ## Cómo abrirlo
 
-Abre `index.html` directamente en el navegador. No necesita instalar nada.
+Abre `index.html` directamente en el navegador. La vista de asignaturas está en `asignaturas.html`. No necesita instalar nada.
 
 ## Diseño en Figma
 
