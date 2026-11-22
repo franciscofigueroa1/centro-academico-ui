@@ -10,6 +10,8 @@ Los datos de la maqueta son de ejemplo y no se consultan mediante la API de Canv
 
 En Inicio, la agenda permite filtrar los eventos por entregas, clases y evaluaciones.
 
+Desde el detalle de Interfaz de Usuario puedes abrir `evaluacion.html` para revisar el progreso del Trabajo 3 y agregar pasos nuevos mediante un modal con validación y alerta de confirmación.
+
 Las páginas incluyen un enlace para saltar al contenido principal y estilos de foco para navegar con teclado.
 
 ## Diseño en Figma
