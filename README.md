@@ -10,6 +10,8 @@ Los datos de la maqueta son de ejemplo y no se consultan mediante la API de Canv
 
 En Inicio, la agenda permite filtrar los eventos por entregas, clases y evaluaciones.
 
+Las páginas incluyen un enlace para saltar al contenido principal y estilos de foco para navegar con teclado.
+
 ## Diseño en Figma
 
 [Ver maqueta en Figma](https://www.figma.com/design/e6P0ex0cCNdBfD1MLxTCEl/Centro-acad%C3%A9mico-%E2%80%94-Trabajo-3?node-id=0-1&t=9baKj5Zl1L1LHGUE-1)
