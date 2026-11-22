@@ -655,6 +655,20 @@ h2 {
   background: var(--surface-muted);
 }
 
+a.subject-card {
+  transition: background-color 0.15s, box-shadow 0.15s;
+}
+
+a.subject-card:hover {
+  background: #eee8f2;
+  box-shadow: 0 0 0 1px #e2d7ea inset;
+}
+
+a.subject-card:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 2px;
+}
+
 .subject-card h3 {
   margin: 0 0 4px;
   color: #302737;
@@ -716,5 +730,243 @@ h2 {
 
   .subject-list {
     gap: 12px;
+  }
+}
+
+.course-main {
+  max-width: 760px;
+  background: var(--paper);
+}
+
+.course-detail-page {
+  background: var(--paper);
+}
+
+.course-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 32px;
+  color: var(--nav-ink);
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.course-back:hover {
+  color: var(--violet-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.course-heading {
+  margin-bottom: 42px;
+}
+
+.course-heading h1 {
+  margin-bottom: 8px;
+  color: #302737;
+  font-size: 24px;
+  letter-spacing: -0.35px;
+}
+
+.course-subtitle {
+  margin-bottom: 0;
+  color: #675d70;
+  font-size: 14px;
+}
+
+.course-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  min-height: 48px;
+  margin-bottom: 36px;
+  padding: 4px;
+  border-radius: 8px;
+  background: var(--surface-muted);
+}
+
+.course-tab {
+  min-width: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #675d70;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.course-tab:hover {
+  color: var(--nav-ink);
+}
+
+.course-tab[aria-selected="true"] {
+  background: var(--nav-active);
+  color: var(--nav-ink);
+}
+
+.course-tab:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 1px;
+}
+
+.course-panel[hidden] {
+  display: none;
+}
+
+.task-card,
+.material-card,
+.grades-empty {
+  border-radius: 12px;
+  background: var(--surface-muted);
+}
+
+.task-card {
+  min-height: 176px;
+  padding: 18px 16px;
+}
+
+.task-card h2 {
+  margin-bottom: 10px;
+  color: #302737;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.task-due {
+  margin: 0 0 12px;
+  color: #675d70;
+  font-size: 14px;
+}
+
+.task-status {
+  display: flex;
+  width: max-content;
+  min-height: 28px;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.task-link {
+  display: block;
+  width: max-content;
+  margin-top: 18px;
+  color: var(--nav-ink);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.task-link:hover,
+.material-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.material-list {
+  display: grid;
+  gap: 12px;
+}
+
+.material-card {
+  display: flex;
+  min-height: 96px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  color: #302737;
+}
+
+.material-title {
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.material-link {
+  color: var(--nav-ink);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.grades-title {
+  margin: 0 0 24px;
+  color: #302737;
+  font-size: 18px;
+  font-weight: 650;
+}
+
+.grades-empty {
+  min-height: 144px;
+  margin-bottom: 24px;
+  padding: 20px 16px;
+}
+
+.grades-empty h3 {
+  margin: 0 0 18px;
+  color: #302737;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.grades-empty p {
+  margin: 0 0 4px;
+  color: #675d70;
+  font-size: 14px;
+}
+
+.canvas-button {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--nav-ink);
+  color: white;
+  font-size: 14px;
+  font-weight: 650;
+  transition: background-color 0.15s;
+}
+
+.canvas-button:hover {
+  background: #5d3676;
+}
+
+.canvas-button:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 3px;
+}
+
+.course-demo-note {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media (max-width: 600px) {
+  .course-detail-page .sidebar {
+    display: none;
+  }
+
+  .course-main.page-shell {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    padding: 36px 24px 40px;
+  }
+
+  .course-back {
+    margin-bottom: 32px;
+  }
+
+  .course-tabs {
+    margin-bottom: 36px;
   }
 }

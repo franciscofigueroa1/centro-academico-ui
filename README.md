@@ -4,7 +4,9 @@ Maqueta web en HTML, CSS y JavaScript para reunir en un solo lugar las asignatur
 
 ## Cómo abrirlo
 
-Abre `index.html` directamente en el navegador. La vista de asignaturas está en `asignaturas.html`. No necesita instalar nada.
+Abre `index.html` directamente en el navegador. Desde Inicio puedes abrir `asignaturas.html` y el detalle de Interfaz de Usuario. No necesita instalar nada.
+
+Los datos de la maqueta son de ejemplo y no se consultan mediante la API de Canvas. Los enlaces de tareas, materiales y notas abren Canvas.
 
 ## Diseño en Figma
 
