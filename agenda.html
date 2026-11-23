@@ -3,60 +3,71 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f7f5fb">
+    <meta name="theme-color" content="#f6f4fa">
     <title>Agenda | Centro académico</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
     <script src="agenda.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#agenda-contenido">Saltar al contenido principal</a>
     <div class="app-layout">
       <aside class="sidebar" aria-label="Menú principal">
-        <a class="brand" href="index.html#inicio" aria-label="Centro académico, inicio">
+        <a class="brand" href="index.html" aria-label="Centro académico, inicio">
           <span class="brand-mark" aria-hidden="true">CA</span>
           <span class="brand-name">Centro académico</span>
         </a>
 
         <nav class="main-nav" aria-label="Navegación principal">
-          <a class="nav-link" href="index.html#inicio">Inicio</a>
+          <a class="nav-link" href="index.html">Inicio</a>
           <a class="nav-link" href="asignaturas.html">Asignaturas</a>
           <a class="nav-link is-active" href="agenda.html" aria-current="page">Agenda</a>
         </nav>
 
-        <div class="sidebar-footer" aria-label="Perfil de estudiante">
-          <span class="profile-avatar" aria-hidden="true">F</span>
-          <div class="profile-meta">
-            <span class="profile-name">Francisco</span>
-            <span class="profile-sub">Semestre actual</span>
+        <div class="sidebar-footer" aria-label="Perfil y tema">
+          <div class="profile-row">
+            <span class="profile-avatar" aria-hidden="true">F</span>
+            <div class="profile-meta">
+              <span class="profile-name">Francisco</span>
+              <span class="profile-sub">2026-2</span>
+            </div>
           </div>
+          <button id="theme-toggle" class="theme-button" type="button" aria-pressed="false">Modo oscuro</button>
         </div>
       </aside>
 
       <main id="agenda-contenido" class="page-shell subjects-main" tabindex="-1">
-        <header class="agenda-header">
+        <div id="agenda-alert" class="alert-banner alert-success" role="status" aria-live="polite" hidden>
           <div>
-            <p class="eyebrow">Calendario académico</p>
-            <h1>Agenda</h1>
-            <p class="subjects-subtitle">Entregas, clases y evaluaciones de las próximas semanas</p>
+            <strong>Evento agregado</strong>
+            <p id="agenda-alert-text">Se guardó en tu agenda local.</p>
           </div>
-          <span id="agenda-total" class="week-badge" aria-live="polite">0 eventos</span>
+          <button id="close-agenda-alert" class="alert-close" type="button" aria-label="Cerrar aviso">×</button>
+        </div>
+
+        <header class="agenda-header">
+          <div class="agenda-title-block">
+            <h1>Agenda</h1>
+            <span id="agenda-total" class="week-badge" aria-live="polite">0 eventos</span>
+          </div>
+          <button id="open-event-modal" class="primary-button" type="button">+ Evento</button>
         </header>
 
         <section class="agenda-controls" aria-label="Filtros de agenda">
           <div class="agenda-search-row">
             <div class="search-field agenda-search">
               <label class="sr-only" for="agenda-search">Buscar en agenda</label>
-              <input id="agenda-search" type="search" placeholder="Buscar por título o asignatura" autocomplete="off">
+              <input id="agenda-search" type="search" placeholder="Buscar por título o ramo" autocomplete="off">
             </div>
 
             <div class="agenda-select-wrap">
               <label class="sr-only" for="agenda-course-filter">Filtrar por asignatura</label>
               <select id="agenda-course-filter" class="agenda-select">
-                <option value="all">Todas las asignaturas</option>
+                <option value="all">Todos los ramos</option>
               </select>
             </div>
           </div>
@@ -69,18 +80,70 @@
           </div>
         </section>
 
-        <section aria-labelledby="agenda-list-title">
-          <h2 id="agenda-list-title" class="sr-only">Lista de eventos</h2>
+        <section aria-label="Eventos agendados">
           <div id="agenda-list" class="agenda-card-list"></div>
 
           <div id="agenda-empty" class="empty-state agenda-empty" role="status" hidden>
-            <p>No hay eventos que coincidan con los filtros actuales.</p>
+            <p>Sin eventos con esos filtros.</p>
             <button id="agenda-reset" class="secondary-button" type="button">Limpiar filtros</button>
           </div>
         </section>
-
-        <p class="demo-note">Datos cargados dinámicamente desde JavaScript para la maqueta del Trabajo 3.</p>
       </main>
+    </div>
+
+    <div id="event-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="event-modal-title" hidden>
+      <div class="modal-card">
+        <div class="modal-header">
+          <h2 id="event-modal-title">Agregar evento</h2>
+          <button id="close-event-modal" class="modal-close" type="button" aria-label="Cerrar ventana">×</button>
+        </div>
+
+        <form id="event-form" class="modal-form" novalidate>
+          <div class="form-field">
+            <label for="event-title">Título</label>
+            <input id="event-title" type="text" maxlength="80" placeholder="Ej: Control 2 o Entrega informe" required>
+            <p id="event-error" class="field-error" role="alert" hidden></p>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-field">
+              <label for="event-course">Asignatura</label>
+              <select id="event-course">
+                <option value="Interfaz de Usuario">Interfaz de Usuario</option>
+                <option value="Construcción de Software">Construcción de Software</option>
+                <option value="Metodologías y Calidad">Metodologías y Calidad</option>
+                <option value="Análisis y Diseño OO">Análisis y Diseño OO</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="event-category">Tipo</label>
+              <select id="event-category">
+                <option value="entrega">Entrega</option>
+                <option value="evaluacion">Evaluación</option>
+                <option value="clase">Clase</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-field">
+              <label for="event-date">Fecha</label>
+              <input id="event-date" type="date" value="2026-11-28" required>
+            </div>
+
+            <div class="form-field">
+              <label for="event-time">Hora</label>
+              <input id="event-time" type="time" value="16:30" required>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button id="cancel-event-modal" class="secondary-button" type="button">Cancelar</button>
+            <button class="primary-button" type="submit">Guardar</button>
+          </div>
+        </form>
+      </div>
     </div>
   </body>
 </html>

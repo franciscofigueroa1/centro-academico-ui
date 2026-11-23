@@ -1,4 +1,209 @@
 window.ACADEMIC_DATA = {
+  courses: {
+    iu: {
+      id: "iu",
+      code: "UI",
+      colorClass: "icon-violet",
+      tagClass: "tag-violet",
+      name: "Interfaz de Usuario",
+      area: "Diseño, Sección 02",
+      progress: 68,
+      canvasGradesUrl: "https://virginiogomez.instructure.com/courses/16836/grades",
+      tasks: [
+        {
+          title: "Trabajo 3 - Maqueta web",
+          dueText: "24 nov, 16:30",
+          dueIso: "2026-11-24T16:30",
+          weight: "24%",
+          status: "Pendiente",
+          statusClass: "",
+          href: "evaluacion.html",
+          linkText: "Abrir plan de entrega",
+          external: false
+        },
+        {
+          title: "Trabajo 1 - Prototipo inicial",
+          dueText: "14 oct, 16:30",
+          dueIso: "2026-10-14T16:30",
+          weight: "15%",
+          status: "Entregado (6.8)",
+          statusClass: "is-complete",
+          href: "https://virginiogomez.instructure.com/courses/16836",
+          linkText: "Ver en Canvas",
+          external: true
+        }
+      ],
+      materials: [
+        {
+          title: "Semana 1 - Introducción a interfaces",
+          type: "Apunte HTML",
+          href: "https://virginiogomez.instructure.com/courses/16836"
+        },
+        {
+          title: "Semana 2 - Estructura HTML semántico",
+          type: "Guía práctica",
+          href: "https://virginiogomez.instructure.com/courses/16836/modules/items/756169"
+        },
+        {
+          title: "Semana 2 - Sintaxis y variables CSS",
+          type: "Guía práctica",
+          href: "https://virginiogomez.instructure.com/courses/16836/modules/items/731470"
+        }
+      ],
+      grades: {
+        examWeight: 24,
+        examName: "Trabajo 3",
+        items: [
+          { name: "Trabajo 1", weight: 15, score: 6.8 },
+          { name: "Controles y talleres", weight: 37, score: 5.5 },
+          { name: "Trabajo 2", weight: 24, score: 4.0 }
+        ]
+      }
+    },
+    cs: {
+      id: "cs",
+      code: "CS",
+      colorClass: "icon-blue",
+      tagClass: "tag-blue",
+      name: "Construcción de Software",
+      area: "Desarrollo, Sección 01",
+      progress: 52,
+      canvasGradesUrl: "https://virginiogomez.instructure.com/courses/15204/grades",
+      tasks: [
+        {
+          title: "Defensa de proyecto semestral",
+          dueText: "04 dic, 15:00",
+          dueIso: "2026-12-04T15:00",
+          weight: "30%",
+          status: "Pendiente",
+          statusClass: "",
+          href: "https://virginiogomez.instructure.com/courses/15204",
+          linkText: "Ver en Canvas",
+          external: true
+        },
+        {
+          title: "Entrega incremental 2 - API y persistencia",
+          dueText: "12 nov, 23:59",
+          dueIso: "2026-11-12T23:59",
+          weight: "25%",
+          status: "Entregado (5.6)",
+          statusClass: "is-complete",
+          href: "https://virginiogomez.instructure.com/courses/15204",
+          linkText: "Ver en Canvas",
+          external: true
+        }
+      ],
+      materials: [
+        {
+          title: "Arquitectura en capas y repositorios",
+          type: "Presentación",
+          href: "https://virginiogomez.instructure.com/courses/15204"
+        },
+        {
+          title: "Pruebas de integración y manejo de errores",
+          type: "Laboratorio",
+          href: "https://virginiogomez.instructure.com/courses/15204"
+        }
+      ],
+      grades: {
+        examWeight: 30,
+        examName: "Defensa final",
+        items: [
+          { name: "Entrega 1", weight: 20, score: 5.2 },
+          { name: "Entrega 2", weight: 25, score: 5.6 },
+          { name: "Talleres", weight: 25, score: 5.8 }
+        ]
+      }
+    },
+    mc: {
+      id: "mc",
+      code: "MC",
+      colorClass: "icon-rose",
+      tagClass: "tag-rose",
+      name: "Metodologías y Calidad",
+      area: "Gestión, Sección 01",
+      progress: 74,
+      canvasGradesUrl: "https://virginiogomez.instructure.com/courses/16771/grades",
+      tasks: [
+        {
+          title: "Trabajo 2 - Presentación sistema informático",
+          dueText: "27 nov, 23:59",
+          dueIso: "2026-11-27T23:59",
+          weight: "30%",
+          status: "En preparación",
+          statusClass: "",
+          href: "https://virginiogomez.instructure.com/courses/16771",
+          linkText: "Ver en Canvas",
+          external: true
+        }
+      ],
+      materials: [
+        {
+          title: "Métricas de calidad e ISO/IEC 25010",
+          type: "Documento",
+          href: "https://virginiogomez.instructure.com/courses/16771"
+        },
+        {
+          title: "Scrum, tableros y criterios de aceptación",
+          type: "Guía",
+          href: "https://virginiogomez.instructure.com/courses/16771"
+        }
+      ],
+      grades: {
+        examWeight: 30,
+        examName: "Trabajo 2",
+        items: [
+          { name: "Certamen 1", weight: 25, score: 6.1 },
+          { name: "Informe de avance", weight: 25, score: 5.9 },
+          { name: "Controles", weight: 20, score: 6.3 }
+        ]
+      }
+    },
+    ad: {
+      id: "ad",
+      code: "AD",
+      colorClass: "icon-mint",
+      tagClass: "tag-blue",
+      name: "Análisis y Diseño OO",
+      area: "Modelado, Sección 01",
+      progress: 61,
+      canvasGradesUrl: "https://virginiogomez.instructure.com/courses/16037/grades",
+      tasks: [
+        {
+          title: "Diagrama de secuencia y clases",
+          dueText: "30 nov, 14:30",
+          dueIso: "2026-11-30T14:30",
+          weight: "25%",
+          status: "Pendiente",
+          statusClass: "",
+          href: "https://virginiogomez.instructure.com/courses/16037",
+          linkText: "Ver en Canvas",
+          external: true
+        }
+      ],
+      materials: [
+        {
+          title: "Casos de uso y modelo de dominio UML",
+          type: "Apunte",
+          href: "https://virginiogomez.instructure.com/courses/16037"
+        },
+        {
+          title: "Patrones GRASP y responsabilidad de clases",
+          type: "Ejercicios",
+          href: "https://virginiogomez.instructure.com/courses/16037"
+        }
+      ],
+      grades: {
+        examWeight: 25,
+        examName: "Entrega UML",
+        items: [
+          { name: "Evaluación 1", weight: 25, score: 5.4 },
+          { name: "Evaluación 2", weight: 25, score: 5.0 },
+          { name: "Taller grupal", weight: 25, score: 5.7 }
+        ]
+      }
+    }
+  },
   evaluation: {
     id: "trabajo-3-iu",
     course: "Interfaz de Usuario",
@@ -7,41 +212,40 @@ window.ACADEMIC_DATA = {
     dueIso: "2026-11-24T16:30",
     weight: "24%",
     canvasUrl: "https://virginiogomez.instructure.com/courses/16836/assignments/40769",
-    summary: "Maqueta funcional en HTML, CSS y JavaScript basada en el diseño de Figma, con al menos 5 vistas y un flujo completo.",
     defaultSteps: [
       {
         id: "step-1",
-        title: "Revisar pauta y requisitos en Canvas",
+        title: "Revisar pauta en Canvas",
         priority: "Alta",
-        note: "Confirmar minimo de 5 vistas y componentes obligatorios.",
+        note: "5 vistas, componentes y flujo funcional.",
         done: true
       },
       {
         id: "step-2",
-        title: "Cerrar pantallas principales en Figma",
+        title: "Cerrar pantallas en Figma",
         priority: "Alta",
-        note: "Inicio, asignaturas, detalle, evaluacion y agenda.",
+        note: "Inicio, asignaturas, ramo, evaluación y agenda.",
         done: true
       },
       {
         id: "step-3",
-        title: "Maquetar estructura HTML y estilos responsive",
+        title: "Maquetar HTML y CSS responsive",
         priority: "Media",
-        note: "Probar vista de escritorio y barra inferior en movil.",
+        note: "Escritorio con sidebar y menú inferior en móvil.",
         done: true
       },
       {
         id: "step-4",
-        title: "Agregar modal de nuevo paso y validacion",
+        title: "Conectar filtros, simulador, modal y chatbot",
         priority: "Alta",
-        note: "Mostrar error si el campo queda vacio y alerta al guardar.",
+        note: "Probar validación y persistencia en localStorage.",
         done: false
       },
       {
         id: "step-5",
-        title: "Subir version final y activar GitHub Pages",
+        title: "Publicar en GitHub Pages",
         priority: "Normal",
-        note: "Verificar que no haya errores en la consola del navegador.",
+        note: "Verificar cero errores en consola.",
         done: false
       }
     ]
@@ -51,91 +255,97 @@ window.ACADEMIC_DATA = {
       id: "ev-1",
       dayLabel: "MAR",
       dayNumber: "24",
-      monthLabel: "Noviembre",
+      monthLabel: "24 nov",
       dateIso: "2026-11-24T16:30",
       time: "16:30",
       category: "entrega",
       categoryLabel: "Entrega",
       title: "Trabajo 3 - Maqueta web",
       course: "Interfaz de Usuario",
-      detail: "Entrega final con maqueta funcional y link de Figma.",
+      detail: "Maqueta funcional HTML/CSS/JS + enlace a Figma.",
       href: "evaluacion.html",
-      linkText: "Ver detalle"
+      linkText: "Ver plan",
+      done: false
     },
     {
       id: "ev-2",
       dayLabel: "JUE",
       dayNumber: "26",
-      monthLabel: "Noviembre",
+      monthLabel: "26 nov",
       dateIso: "2026-11-26T10:15",
       time: "10:15",
       category: "clase",
       categoryLabel: "Clase",
       title: "Patrones de diseño y arquitectura",
       course: "Construcción de Software",
-      detail: "Revisión de casos prácticos en laboratorio.",
-      href: "",
-      linkText: ""
+      detail: "Laboratorio práctico sección 01.",
+      href: "interfaz.html?ramo=cs",
+      linkText: "Ver ramo",
+      done: false
     },
     {
       id: "ev-3",
       dayLabel: "VIE",
       dayNumber: "27",
-      monthLabel: "Noviembre",
+      monthLabel: "27 nov",
       dateIso: "2026-11-27T12:00",
       time: "12:00",
       category: "evaluacion",
       categoryLabel: "Evaluación",
-      title: "Control de unidad 3",
+      title: "Presentación sistema informático",
       course: "Metodologías y Calidad",
-      detail: "Preguntas sobre pruebas, métricas y aseguramiento de calidad.",
-      href: "",
-      linkText: ""
+      detail: "Trabajo 2 y métricas ISO/IEC 25010.",
+      href: "interfaz.html?ramo=mc",
+      linkText: "Ver ramo",
+      done: false
     },
     {
       id: "ev-4",
       dayLabel: "LUN",
       dayNumber: "30",
-      monthLabel: "Noviembre",
+      monthLabel: "30 nov",
       dateIso: "2026-11-30T14:30",
       time: "14:30",
       category: "entrega",
       categoryLabel: "Entrega",
       title: "Diagrama de secuencia y clases",
       course: "Análisis y Diseño OO",
-      detail: "Subir archivo UML corregido en plataforma.",
-      href: "",
-      linkText: ""
+      detail: "Subir modelo UML en Canvas.",
+      href: "interfaz.html?ramo=ad",
+      linkText: "Ver ramo",
+      done: false
     },
     {
       id: "ev-5",
       dayLabel: "MIE",
       dayNumber: "02",
-      monthLabel: "Diciembre",
+      monthLabel: "02 dic",
       dateIso: "2026-12-02T09:00",
       time: "09:00",
       category: "clase",
       categoryLabel: "Clase",
       title: "Revisión de entregas finales",
       course: "Interfaz de Usuario",
-      detail: "Presentación breve de la maqueta y decisiones de diseño.",
-      href: "interfaz.html",
-      linkText: "Ir al ramo"
+      detail: "Defensa corta de decisiones de diseño.",
+      href: "interfaz.html?ramo=iu",
+      linkText: "Ver ramo",
+      done: false
     },
     {
       id: "ev-6",
       dayLabel: "VIE",
       dayNumber: "04",
-      monthLabel: "Diciembre",
+      monthLabel: "04 dic",
       dateIso: "2026-12-04T15:00",
       time: "15:00",
       category: "evaluacion",
       categoryLabel: "Evaluación",
       title: "Defensa de proyecto semestral",
       course: "Construcción de Software",
-      detail: "Demo funcional frente a docente.",
-      href: "",
-      linkText: ""
+      detail: "Demo funcional frente al docente.",
+      href: "interfaz.html?ramo=cs",
+      linkText: "Ver ramo",
+      done: false
     }
   ]
 };

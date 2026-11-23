@@ -3,46 +3,50 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f7f5fb">
-    <title>Detalle de evaluación | Centro académico</title>
+    <meta name="theme-color" content="#f6f4fa">
+    <title>Trabajo 3 | Centro académico</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
     <script src="evaluacion.js" defer></script>
   </head>
   <body class="course-detail-page">
     <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
     <div class="app-layout">
       <aside class="sidebar" aria-label="Menú principal">
-        <a class="brand" href="index.html#inicio" aria-label="Centro académico, inicio">
+        <a class="brand" href="index.html" aria-label="Centro académico, inicio">
           <span class="brand-mark" aria-hidden="true">CA</span>
           <span class="brand-name">Centro académico</span>
         </a>
 
         <nav class="main-nav" aria-label="Navegación principal">
-          <a class="nav-link" href="index.html#inicio">Inicio</a>
+          <a class="nav-link" href="index.html">Inicio</a>
           <a class="nav-link is-active" href="asignaturas.html" aria-current="page">Asignaturas</a>
           <a class="nav-link" href="agenda.html">Agenda</a>
         </nav>
 
-        <div class="sidebar-footer" aria-label="Perfil de estudiante">
-          <span class="profile-avatar" aria-hidden="true">F</span>
-          <div class="profile-meta">
-            <span class="profile-name">Francisco</span>
-            <span class="profile-sub">Semestre actual</span>
+        <div class="sidebar-footer" aria-label="Perfil y tema">
+          <div class="profile-row">
+            <span class="profile-avatar" aria-hidden="true">F</span>
+            <div class="profile-meta">
+              <span class="profile-name">Francisco</span>
+              <span class="profile-sub">2026-2</span>
+            </div>
           </div>
+          <button id="theme-toggle" class="theme-button" type="button" aria-pressed="false">Modo oscuro</button>
         </div>
       </aside>
 
       <main id="contenido" class="page-shell course-main" tabindex="-1">
-        <a class="course-back" href="interfaz.html"><span aria-hidden="true">‹</span> Volver a Interfaz de Usuario</a>
+        <a class="course-back" href="interfaz.html?ramo=iu"><span aria-hidden="true">←</span> Interfaz de Usuario</a>
 
         <div id="save-alert" class="alert-banner alert-success" role="status" aria-live="polite" hidden>
           <div>
             <strong>Paso guardado</strong>
-            <p id="save-alert-text">Se agregó a tu lista de pendientes para esta entrega.</p>
+            <p id="save-alert-text">Se agregó a la lista.</p>
           </div>
           <button id="close-alert" class="alert-close" type="button" aria-label="Cerrar aviso">×</button>
         </div>
@@ -54,21 +58,17 @@
             <span class="task-status" id="eval-status">En progreso</span>
           </div>
           <h1 id="eval-title">Trabajo 3 - Maqueta web</h1>
-          <p class="eval-due">Plazo: <time id="eval-due" datetime="2026-11-24T16:30">Martes 24 de noviembre, 16:30</time></p>
-          <p class="eval-summary" id="eval-summary">Maqueta funcional en HTML, CSS y JavaScript basada en el diseño de Figma.</p>
+          <p class="eval-due">Entrega: <time id="eval-due" datetime="2026-11-24T16:30">Martes 24 de noviembre, 16:30</time></p>
         </header>
 
         <section class="panel eval-panel" aria-labelledby="steps-title">
           <div class="section-heading eval-heading">
-            <div>
-              <p class="eyebrow">Plan de entrega</p>
-              <h2 id="steps-title">Pasos para completar</h2>
-            </div>
-            <button id="open-step-modal" class="primary-button" type="button">Agregar paso</button>
+            <h2 id="steps-title">Checklist de entrega</h2>
+            <button id="open-step-modal" class="primary-button" type="button">+ Nuevo paso</button>
           </div>
 
           <div class="eval-progress-row">
-            <span id="steps-counter" class="eval-counter">0 de 0 completados</span>
+            <span id="steps-counter" class="eval-counter">0 de 0 listos</span>
             <span id="steps-percent" class="eval-percent">0%</span>
           </div>
           <div class="course-progress eval-progress" aria-hidden="true">
@@ -76,31 +76,26 @@
           </div>
 
           <ul id="steps-list" class="steps-list"></ul>
-          <p id="steps-empty" class="empty-state" role="status" hidden>No hay pasos registrados todavía. Agrega uno para organizar tu entrega.</p>
+          <p id="steps-empty" class="empty-state" role="status" hidden>No quedan pasos en la lista.</p>
         </section>
 
         <div class="eval-actions">
-          <a id="eval-canvas-link" class="canvas-button" href="https://virginiogomez.instructure.com/courses/16836/assignments/40769" target="_blank" rel="noopener noreferrer">Abrir entrega en Canvas</a>
+          <a id="eval-canvas-link" class="canvas-button" href="https://virginiogomez.instructure.com/courses/16836/assignments/40769" target="_blank" rel="noopener noreferrer">Abrir buzón en Canvas</a>
         </div>
-
-        <p class="course-demo-note">Los pasos que agregues se guardan en este navegador de forma local.</p>
       </main>
     </div>
 
     <div id="step-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
       <div class="modal-card">
         <div class="modal-header">
-          <div>
-            <p class="eyebrow">Planificación</p>
-            <h2 id="modal-title">Nuevo paso</h2>
-          </div>
+          <h2 id="modal-title">Nuevo paso</h2>
           <button id="close-step-modal" class="modal-close" type="button" aria-label="Cerrar ventana">×</button>
         </div>
 
         <form id="step-form" class="modal-form" novalidate>
           <div class="form-field">
-            <label for="step-title">¿Qué falta por hacer?</label>
-            <input id="step-title" name="title" type="text" maxlength="90" placeholder="Ej: Revisar contraste en botones" autocomplete="off" required>
+            <label for="step-title">Tarea o paso</label>
+            <input id="step-title" name="title" type="text" maxlength="90" placeholder="Ej: Probar formulario en móvil" autocomplete="off" required>
             <p id="step-error" class="field-error" role="alert" hidden></p>
           </div>
 
@@ -114,8 +109,8 @@
           </div>
 
           <div class="form-field">
-            <label for="step-note">Nota opcional</label>
-            <textarea id="step-note" name="note" rows="3" maxlength="160" placeholder="Algún detalle o recordatorio corto"></textarea>
+            <label for="step-note">Nota (opcional)</label>
+            <textarea id="step-note" name="note" rows="2" maxlength="140" placeholder="Detalle corto"></textarea>
           </div>
 
           <div class="modal-actions">

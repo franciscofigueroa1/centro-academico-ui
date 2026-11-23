@@ -1,18 +1,20 @@
 # Centro académico
 
-Maqueta web en HTML, CSS y JavaScript para reunir en un solo lugar las asignaturas, tareas, notas y agenda del semestre.
+Maqueta funcional en HTML, CSS y JavaScript para organizar asignaturas, entregas, notas y agenda del semestre.
 
-## Vistas incluidas
+## Vistas y funciones
 
-- `index.html`: inicio con resumen del semestre, avance por ramo y eventos de la semana.
-- `asignaturas.html`: listado de ramos con buscador en vivo y estado sin resultados.
-- `interfaz.html`: detalle de asignatura con pestañas de Tareas, Materiales y Notas.
-- `evaluacion.html`: detalle del Trabajo 3 con checklist, progreso, modal de nuevo paso con validación y alerta de confirmación.
-- `agenda.html`: agenda completa generada desde datos en `data.js`, con búsqueda y filtros por tipo y asignatura.
+- `index.html`: resumen semanal, avance de los 4 ramos y filtro rápido de eventos.
+- `asignaturas.html`: listado de los 4 ramos con filtro por nombre o código.
+- `interfaz.html`: detalle dinámico para cualquiera de los 4 ramos (`?ramo=iu|cs|mc|ad`), con pestañas de Tareas, Materiales y **Simulador de nota final**.
+- `evaluacion.html`: checklist del Trabajo 3 con barra de progreso, modal de nuevo paso con validación y alerta de confirmación.
+- `agenda.html`: calendario completo desde `data.js`, buscador, filtro por ramo y tipo, marcado de eventos hechos y modal para agregar eventos.
+- **Extras en todas las vistas**: cambio entre modo claro y oscuro, y asistente académico flotante que consulta tus notas, pasos y entregas en vivo.
 
-## Cómo abrirlo
+## Ejecutar
 
-Abre `index.html` directamente en el navegador. No necesita instalar dependencias ni servidor local.
+Abre `index.html` directamente en el navegador o visita la versión publicada en GitHub Pages:
+https://franciscofigueroa1.github.io/centro-academico-ui/
 
 ## Diseño en Figma
 

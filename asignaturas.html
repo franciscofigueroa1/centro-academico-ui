@@ -3,73 +3,100 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f7f5fb">
+    <meta name="theme-color" content="#f6f4fa">
     <title>Asignaturas | Centro académico</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#asignaturas">Saltar al contenido principal</a>
     <div class="app-layout">
       <aside class="sidebar" aria-label="Menú principal">
-        <a class="brand" href="index.html#inicio" aria-label="Centro académico, inicio">
+        <a class="brand" href="index.html" aria-label="Centro académico, inicio">
           <span class="brand-mark" aria-hidden="true">CA</span>
           <span class="brand-name">Centro académico</span>
         </a>
 
         <nav class="main-nav" aria-label="Navegación principal">
-          <a class="nav-link" href="index.html#inicio">Inicio</a>
+          <a class="nav-link" href="index.html">Inicio</a>
           <a class="nav-link is-active" href="asignaturas.html" aria-current="page">Asignaturas</a>
           <a class="nav-link" href="agenda.html">Agenda</a>
         </nav>
 
-        <div class="sidebar-footer" aria-label="Perfil de estudiante">
-          <span class="profile-avatar" aria-hidden="true">F</span>
-          <div class="profile-meta">
-            <span class="profile-name">Francisco</span>
-            <span class="profile-sub">Semestre actual</span>
+        <div class="sidebar-footer" aria-label="Perfil y tema">
+          <div class="profile-row">
+            <span class="profile-avatar" aria-hidden="true">F</span>
+            <div class="profile-meta">
+              <span class="profile-name">Francisco</span>
+              <span class="profile-sub">2026-2</span>
+            </div>
           </div>
+          <button id="theme-toggle" class="theme-button" type="button" aria-pressed="false">Modo oscuro</button>
         </div>
       </aside>
 
       <main id="asignaturas" class="page-shell subjects-main" tabindex="-1">
         <header class="subjects-heading">
           <h1>Asignaturas</h1>
-          <p class="subjects-subtitle">Tus ramos del semestre</p>
         </header>
 
         <div class="search-field">
           <label class="sr-only" for="subject-search">Buscar asignatura</label>
-          <input id="subject-search" type="search" placeholder="Buscar asignatura" autocomplete="off">
+          <input id="subject-search" type="search" placeholder="Filtrar por nombre o código" autocomplete="off">
         </div>
 
-        <section aria-labelledby="subjects-list-title">
-          <h2 id="subjects-list-title" class="subjects-list-heading">Tus asignaturas</h2>
+        <section aria-label="Listado de asignaturas">
           <div id="subject-list" class="subject-list">
-            <a class="subject-card" data-subject="Interfaz de Usuario Diseño Sección 02" href="interfaz.html" aria-label="Abrir detalle de Interfaz de Usuario">
-              <div><h3>Interfaz de Usuario</h3><p>Tareas, materiales y notas</p></div>
-              <span class="subject-chevron" aria-hidden="true">›</span>
+            <a class="subject-card" data-subject="Interfaz de Usuario UI Diseño Sección 02" href="interfaz.html?ramo=iu">
+              <div class="subject-card-left">
+                <span class="course-icon icon-violet" aria-hidden="true">UI</span>
+                <div>
+                  <h3>Interfaz de Usuario</h3>
+                  <p>Sección 02 - 1 entrega pendiente</p>
+                </div>
+              </div>
+              <span class="subject-chevron" aria-hidden="true">→</span>
             </a>
-            <article class="subject-card" data-subject="Construcción de Software Desarrollo Sección 01">
-              <div><h3>Construcción de Software</h3><p>Tareas, materiales y notas</p></div>
-              <span class="subject-chevron" aria-hidden="true">›</span>
-            </article>
-            <article class="subject-card" data-subject="Metodologías y Calidad Gestión Sección 01">
-              <div><h3>Metodologías y Calidad</h3><p>Tareas, materiales y notas</p></div>
-              <span class="subject-chevron" aria-hidden="true">›</span>
-            </article>
-            <article class="subject-card" data-subject="Análisis y Diseño OO Modelado Sección 01">
-              <div><h3>Análisis y Diseño OO</h3><p>Tareas, materiales y notas</p></div>
-              <span class="subject-chevron" aria-hidden="true">›</span>
-            </article>
-          </div>
-          <p id="empty-state" class="empty-state" role="status" hidden>No encontramos asignaturas con ese nombre.</p>
-        </section>
 
-        <p class="demo-note">Datos de ejemplo para la maqueta del Trabajo 3 (sin conexión a Canvas).</p>
+            <a class="subject-card" data-subject="Construcción de Software CS Desarrollo Sección 01" href="interfaz.html?ramo=cs">
+              <div class="subject-card-left">
+                <span class="course-icon icon-blue" aria-hidden="true">CS</span>
+                <div>
+                  <h3>Construcción de Software</h3>
+                  <p>Sección 01 - Defensa 04 dic</p>
+                </div>
+              </div>
+              <span class="subject-chevron" aria-hidden="true">→</span>
+            </a>
+
+            <a class="subject-card" data-subject="Metodologías y Calidad MC Gestión Sección 01" href="interfaz.html?ramo=mc">
+              <div class="subject-card-left">
+                <span class="course-icon icon-rose" aria-hidden="true">MC</span>
+                <div>
+                  <h3>Metodologías y Calidad</h3>
+                  <p>Sección 01 - Presentación 27 nov</p>
+                </div>
+              </div>
+              <span class="subject-chevron" aria-hidden="true">→</span>
+            </a>
+
+            <a class="subject-card" data-subject="Análisis y Diseño OO AD Modelado Sección 01" href="interfaz.html?ramo=ad">
+              <div class="subject-card-left">
+                <span class="course-icon icon-mint" aria-hidden="true">AD</span>
+                <div>
+                  <h3>Análisis y Diseño OO</h3>
+                  <p>Sección 01 - Entrega UML 30 nov</p>
+                </div>
+              </div>
+              <span class="subject-chevron" aria-hidden="true">→</span>
+            </a>
+          </div>
+          <p id="empty-state" class="empty-state" role="status" hidden>Sin coincidencias para esa búsqueda.</p>
+        </section>
       </main>
     </div>
   </body>
