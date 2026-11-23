@@ -33,7 +33,7 @@
             <span class="profile-avatar" aria-hidden="true">F</span>
             <div class="profile-meta">
               <span class="profile-name">Francisco</span>
-              <span class="profile-sub">2026-2</span>
+              <span class="profile-sub">Semestre actual</span>
             </div>
           </div>
           <button id="api-config-btn" class="api-button is-connected" type="button">
@@ -50,21 +50,51 @@
             <p class="date-label">Lunes 23 de noviembre</p>
             <h1 id="welcome-title">Hola, Francisco</h1>
           </div>
-          <a class="calendar-button" href="agenda.html">Ver agenda</a>
+          <a class="calendar-button" href="agenda.html">Ver agenda y horario</a>
         </header>
 
         <section class="summary-grid" aria-label="Resumen del semestre">
-          <article class="summary-card">
-            <p class="summary-label">Asignaturas</p>
-            <p class="summary-value">4 <span>activas</span></p>
+          <article class="summary-card state-good">
+            <div class="summary-top">
+              <p class="summary-label">Estado general</p>
+              <span class="sim-badge b-low">Al día</span>
+            </div>
+            <p class="summary-value">4 ramos <span>3 en verde y 1 por reforzar</span></p>
           </article>
-          <article class="summary-card">
-            <p class="summary-label">Pendientes</p>
-            <p class="summary-value">2 <span>esta semana</span></p>
+
+          <article class="summary-card state-warn">
+            <div class="summary-top">
+              <p class="summary-label">Pendientes de la semana</p>
+              <span class="sim-badge b-med">3 activos</span>
+            </div>
+            <ul class="pending-breakdown">
+              <li>
+                <a href="evaluacion.html">Trabajo 3 - Maqueta web</a>
+                <span class="sim-badge b-crit">Urgente</span>
+              </li>
+              <li>
+                <a href="interfaz.html?ramo=mc">Presentación de sistema</a>
+                <span class="sim-badge b-med">Viernes</span>
+              </li>
+              <li>
+                <a href="interfaz.html?ramo=ad">Diagrama UML</a>
+                <span class="sim-badge b-low">Avanzado</span>
+              </li>
+            </ul>
           </article>
-          <article class="summary-card">
-            <p class="summary-label">Próxima entrega</p>
-            <p class="summary-value">24 nov, 16:30 <span>Trabajo 3 UI</span></p>
+
+          <article id="next-deadline-card" class="summary-card state-bad">
+            <div class="summary-top">
+              <p class="summary-label">Próxima entrega</p>
+              <span id="countdown-badge" class="sim-badge b-crit">Cuenta regresiva</span>
+            </div>
+            <div class="deadline-timer-row">
+              <div>
+                <p class="summary-value">24 nov, 16:30 <span>Trabajo 3 - Interfaz</span></p>
+              </div>
+              <div id="countdown-timer" class="countdown-box" aria-live="polite">--h --m --s</div>
+            </div>
+            <p id="countdown-alert" class="deadline-alert">Aviso: entrega prioritaria en menos de 30 horas.</p>
           </article>
         </section>
 
@@ -76,43 +106,43 @@
             </div>
 
             <div class="course-list">
-              <a class="course-card" href="interfaz.html?ramo=iu">
+              <a class="course-card card-border-warn" href="interfaz.html?ramo=iu">
                 <span class="course-icon icon-violet" aria-hidden="true">UI</span>
                 <div class="course-info">
                   <h3>Interfaz de Usuario</h3>
-                  <p>Sección 02</p>
+                  <p>Entrega Trabajo 3 mañana</p>
                 </div>
-                <span class="course-progress" aria-label="Avance 68%"><span style="width: 68%"></span></span>
+                <span class="sim-badge b-crit">Urgente</span>
                 <span class="progress-label">68%</span>
               </a>
 
-              <a class="course-card" href="interfaz.html?ramo=cs">
+              <a class="course-card card-border-good" href="interfaz.html?ramo=cs">
                 <span class="course-icon icon-blue" aria-hidden="true">CS</span>
                 <div class="course-info">
                   <h3>Construcción de Software</h3>
-                  <p>Sección 01</p>
+                  <p>Avance estable</p>
                 </div>
-                <span class="course-progress" aria-label="Avance 52%"><span style="width: 52%"></span></span>
+                <span class="sim-badge b-low">Al día</span>
                 <span class="progress-label">52%</span>
               </a>
 
-              <a class="course-card" href="interfaz.html?ramo=mc">
+              <a class="course-card card-border-good" href="interfaz.html?ramo=mc">
                 <span class="course-icon icon-rose" aria-hidden="true">MC</span>
                 <div class="course-info">
                   <h3>Metodologías y Calidad</h3>
-                  <p>Sección 01</p>
+                  <p>Promedio sobre 6.0</p>
                 </div>
-                <span class="course-progress" aria-label="Avance 74%"><span style="width: 74%"></span></span>
+                <span class="sim-badge b-low">Al día</span>
                 <span class="progress-label">74%</span>
               </a>
 
-              <a class="course-card" href="interfaz.html?ramo=ad">
+              <a class="course-card card-border-bad" href="interfaz.html?ramo=ad">
                 <span class="course-icon icon-mint" aria-hidden="true">AD</span>
                 <div class="course-info">
                   <h3>Análisis y Diseño OO</h3>
-                  <p>Sección 01</p>
+                  <p>Reforzar entrega UML</p>
                 </div>
-                <span class="course-progress" aria-label="Avance 61%"><span style="width: 61%"></span></span>
+                <span class="sim-badge b-crit">Reforzar</span>
                 <span class="progress-label">61%</span>
               </a>
             </div>
@@ -138,9 +168,9 @@
                   <strong>24</strong>
                 </time>
                 <div class="event-info">
-                  <span class="event-tag tag-violet">Entrega</span>
+                  <span class="sim-badge b-crit">Entrega urgente</span>
                   <h3><a class="event-link" href="evaluacion.html">Trabajo 3 - Maqueta web</a></h3>
-                  <p>Interfaz de Usuario, 16:30</p>
+                  <p>Interfaz de Usuario</p>
                 </div>
               </article>
 
@@ -150,9 +180,9 @@
                   <strong>26</strong>
                 </time>
                 <div class="event-info">
-                  <span class="event-tag tag-blue">Clase</span>
+                  <span class="sim-badge b-low">Clase</span>
                   <h3><a class="event-link" href="interfaz.html?ramo=cs">Patrones de diseño</a></h3>
-                  <p>Construcción de Software, 10:15</p>
+                  <p>Construcción de Software</p>
                 </div>
               </article>
 
@@ -162,9 +192,9 @@
                   <strong>27</strong>
                 </time>
                 <div class="event-info">
-                  <span class="event-tag tag-rose">Evaluación</span>
-                  <h3><a class="event-link" href="interfaz.html?ramo=mc">Presentación sistema</a></h3>
-                  <p>Metodologías y Calidad, 12:00</p>
+                  <span class="sim-badge b-med">Evaluación</span>
+                  <h3><a class="event-link" href="interfaz.html?ramo=mc">Presentación de sistema</a></h3>
+                  <p>Metodologías y Calidad</p>
                 </div>
               </article>
             </div>

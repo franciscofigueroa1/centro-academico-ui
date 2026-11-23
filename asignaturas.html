@@ -33,7 +33,7 @@
             <span class="profile-avatar" aria-hidden="true">F</span>
             <div class="profile-meta">
               <span class="profile-name">Francisco</span>
-              <span class="profile-sub">2026-2</span>
+              <span class="profile-sub">Semestre actual</span>
             </div>
           </div>
           <button id="api-config-btn" class="api-button is-connected" type="button">
@@ -56,48 +56,60 @@
 
         <section aria-label="Listado de asignaturas">
           <div id="subject-list" class="subject-list">
-            <a class="subject-card" data-subject="Interfaz de Usuario UI Diseño Sección 02" href="interfaz.html?ramo=iu">
+            <a class="subject-card state-warn" data-subject="Interfaz de Usuario UI Diseño web" href="interfaz.html?ramo=iu">
               <div class="subject-card-left">
                 <span class="course-icon icon-violet" aria-hidden="true">UI</span>
                 <div>
                   <h3>Interfaz de Usuario</h3>
-                  <p>Sección 02 - 1 entrega pendiente</p>
+                  <p>Trabajo 3 vence el 24 nov</p>
                 </div>
               </div>
-              <span class="subject-chevron" aria-hidden="true">→</span>
+              <div class="subject-card-right">
+                <span class="sim-badge b-crit">Entrega mañana</span>
+                <span class="subject-chevron" aria-hidden="true">→</span>
+              </div>
             </a>
 
-            <a class="subject-card" data-subject="Construcción de Software CS Desarrollo Sección 01" href="interfaz.html?ramo=cs">
+            <a class="subject-card state-good" data-subject="Construcción de Software CS Desarrollo" href="interfaz.html?ramo=cs">
               <div class="subject-card-left">
                 <span class="course-icon icon-blue" aria-hidden="true">CS</span>
                 <div>
                   <h3>Construcción de Software</h3>
-                  <p>Sección 01 - Defensa 04 dic</p>
+                  <p>Defensa programada en diciembre</p>
                 </div>
               </div>
-              <span class="subject-chevron" aria-hidden="true">→</span>
+              <div class="subject-card-right">
+                <span class="sim-badge b-low">Al día</span>
+                <span class="subject-chevron" aria-hidden="true">→</span>
+              </div>
             </a>
 
-            <a class="subject-card" data-subject="Metodologías y Calidad MC Gestión Sección 01" href="interfaz.html?ramo=mc">
+            <a class="subject-card state-good" data-subject="Metodologías y Calidad MC Gestión" href="interfaz.html?ramo=mc">
               <div class="subject-card-left">
                 <span class="course-icon icon-rose" aria-hidden="true">MC</span>
                 <div>
                   <h3>Metodologías y Calidad</h3>
-                  <p>Sección 01 - Presentación 27 nov</p>
+                  <p>Presentación este viernes</p>
                 </div>
               </div>
-              <span class="subject-chevron" aria-hidden="true">→</span>
+              <div class="subject-card-right">
+                <span class="sim-badge b-low">Al día</span>
+                <span class="subject-chevron" aria-hidden="true">→</span>
+              </div>
             </a>
 
-            <a class="subject-card" data-subject="Análisis y Diseño OO AD Modelado Sección 01" href="interfaz.html?ramo=ad">
+            <a class="subject-card state-bad" data-subject="Análisis y Diseño OO AD Modelado UML" href="interfaz.html?ramo=ad">
               <div class="subject-card-left">
                 <span class="course-icon icon-mint" aria-hidden="true">AD</span>
                 <div>
                   <h3>Análisis y Diseño OO</h3>
-                  <p>Sección 01 - Entrega UML 30 nov</p>
+                  <p>Requiere subir nota en entrega UML</p>
                 </div>
               </div>
-              <span class="subject-chevron" aria-hidden="true">→</span>
+              <div class="subject-card-right">
+                <span class="sim-badge b-crit">En riesgo</span>
+                <span class="subject-chevron" aria-hidden="true">→</span>
+              </div>
             </a>
           </div>
           <p id="empty-state" class="empty-state" role="status" hidden>Sin coincidencias para esa búsqueda.</p>

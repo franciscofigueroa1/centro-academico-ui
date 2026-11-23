@@ -83,10 +83,18 @@ function normalizeText(text) {
     .replace(/[\u0300-\u036f]/g, "");
 }
 
-function categoryTagClass(category) {
-  if (category === "entrega") return "tag-violet";
-  if (category === "clase") return "tag-blue";
-  return "tag-rose";
+function categoryBadgeClass(item) {
+  if (item.done) return "b-low";
+  if (item.category === "entrega") return "b-crit";
+  if (item.category === "evaluacion") return "b-med";
+  return "b-low";
+}
+
+function cardStateClass(item) {
+  if (item.done) return "state-good is-done";
+  if (item.category === "entrega") return "state-bad";
+  if (item.category === "evaluacion") return "state-warn";
+  return "state-good";
 }
 
 function categoryLabelText(category) {
@@ -111,7 +119,7 @@ function populateCourseFilter() {
 
 function createEventCard(item) {
   const card = document.createElement("article");
-  card.className = `agenda-card${item.done ? " is-done" : ""}`;
+  card.className = `agenda-card ${cardStateClass(item)}`;
 
   const dateEl = document.createElement("time");
   dateEl.className = "event-date agenda-date";
@@ -132,12 +140,12 @@ function createEventCard(item) {
   meta.className = "agenda-card-meta";
 
   const tag = document.createElement("span");
-  tag.className = `event-tag ${categoryTagClass(item.category)}`;
-  tag.textContent = item.categoryLabel;
+  tag.className = `sim-badge ${categoryBadgeClass(item)}`;
+  tag.textContent = item.done ? "Completado" : item.categoryLabel;
 
   const timeText = document.createElement("span");
   timeText.className = "agenda-card-time";
-  timeText.textContent = `${item.monthLabel}, ${item.time}`;
+  timeText.textContent = `${item.monthLabel} - ${item.time}`;
 
   meta.append(tag, timeText);
 
@@ -253,7 +261,6 @@ if (resetFiltersBtn) {
   });
 }
 
-/* Modal para agregar evento */
 function openEventModal() {
   if (!eventModal) return;
   if (eventError) {
@@ -301,7 +308,7 @@ if (eventForm) {
     const course = courseInput ? courseInput.value : "Interfaz de Usuario";
     const category = categoryInput ? categoryInput.value : "entrega";
     const dateVal = dateInput ? dateInput.value : "2026-11-28";
-    const timeVal = timeInput ? timeInput.value : "16:30";
+    const timeVal = timeInput ? timeInput.value : "Bloque mañana";
 
     if (title.length < 3) {
       if (titleInput) titleInput.classList.add("is-invalid");
@@ -313,7 +320,7 @@ if (eventForm) {
       return;
     }
 
-    const parsedDate = new Date(`${dateVal}T${timeVal}`);
+    const parsedDate = new Date(`${dateVal}T12:00:00`);
     const days = ["DOM", "LUN", "MAR", "MIE", "JUE", "VIE", "SAB"];
     const months = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
 
@@ -327,13 +334,13 @@ if (eventForm) {
       dayLabel,
       dayNumber,
       monthLabel,
-      dateIso: `${dateVal}T${timeVal}`,
+      dateIso: dateVal,
       time: timeVal,
       category,
       categoryLabel: categoryLabelText(category),
       title,
       course,
-      detail: "Agregado manualmente en tu agenda.",
+      detail: "Agregado en tu agenda personal.",
       href: "",
       linkText: "",
       done: false

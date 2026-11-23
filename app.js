@@ -47,6 +47,69 @@ if (themeToggle) {
   });
 }
 
+/* Temporizador en vivo para la proxima entrega */
+function initCountdown() {
+  const timerEl = document.querySelector("#countdown-timer");
+  const alertEl = document.querySelector("#countdown-alert");
+  const cardEl = document.querySelector("#next-deadline-card");
+  const badgeEl = document.querySelector("#countdown-badge");
+  if (!timerEl) return;
+
+  const deadlineIso = (window.ACADEMIC_DATA && window.ACADEMIC_DATA.nextDeadlineIso) || "2026-11-24T16:30:00";
+  const targetTime = new Date(deadlineIso).getTime();
+
+  function tick() {
+    const now = Date.now();
+    const diff = targetTime - now;
+
+    if (diff <= 0) {
+      timerEl.textContent = "00h 00m 00s";
+      if (alertEl) alertEl.textContent = "Plazo cumplido: verifica que el envío esté confirmado.";
+      if (badgeEl) badgeEl.textContent = "Cerrado";
+      return;
+    }
+
+    const totalSeconds = Math.floor(diff / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    const pad = n => String(n).padStart(2, "0");
+    timerEl.textContent = days > 0
+      ? `${days}d ${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`
+      : `${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
+
+    const hoursLeft = totalSeconds / 3600;
+    if (cardEl && badgeEl && alertEl) {
+      cardEl.classList.remove("state-good", "state-warn", "state-bad");
+      badgeEl.classList.remove("b-low", "b-med", "b-crit");
+
+      if (hoursLeft <= 36) {
+        cardEl.classList.add("state-bad");
+        badgeEl.classList.add("b-crit");
+        badgeEl.textContent = "Urgente";
+        alertEl.textContent = "Alerta: queda poco tiempo para cerrar y subir el Trabajo 3.";
+      } else if (hoursLeft <= 72) {
+        cardEl.classList.add("state-warn");
+        badgeEl.classList.add("b-med");
+        badgeEl.textContent = "En curso";
+        alertEl.textContent = "Avanza hoy en los pasos pendientes de la entrega.";
+      } else {
+        cardEl.classList.add("state-good");
+        badgeEl.classList.add("b-low");
+        badgeEl.textContent = "A tiempo";
+        alertEl.textContent = "Tienes buen margen de tiempo para la entrega.";
+      }
+    }
+  }
+
+  tick();
+  setInterval(tick, 1000);
+}
+
+initCountdown();
+
 /* Boton Configurar API / API funcionando (abajo a la izquierda) */
 function initApiConfig() {
   const apiBtn = document.querySelector("#api-config-btn");
@@ -63,6 +126,7 @@ function initApiConfig() {
 
   function renderApiButton() {
     apiBtn.classList.toggle("is-connected", isConnected);
+    apiBtn.classList.toggle("is-disconnected", !isConnected);
     apiLabel.textContent = isConnected ? "API funcionando" : "Configurar API";
   }
 
@@ -88,8 +152,8 @@ function initApiConfig() {
           <input id="api-url-input" type="url" value="https://virginiogomez.instructure.com" required>
         </div>
         <div class="form-field">
-          <label for="api-token-input">Token personal</label>
-          <input id="api-token-input" type="password" value="dpapi-local-token-activo" placeholder="Pega tu token de Canvas" required>
+          <label for="api-token-input">Token de acceso</label>
+          <input id="api-token-input" type="password" value="token-academico-activo" placeholder="Pega tu token de Canvas" required>
         </div>
         <p id="api-modal-status" class="api-status-note"></p>
         <div class="modal-actions">
@@ -110,8 +174,8 @@ function initApiConfig() {
 
   function openApiModal() {
     statusNote.textContent = isConnected
-      ? "Estado actual: API conectada y sincronizada."
-      : "Estado actual: sin conexión activa. Guarda un token para activar.";
+      ? "Estado actual: API conectada (en verde)."
+      : "Estado actual: desconectada (en rojo). Guarda para activar.";
     modal.hidden = false;
     tokenInput.focus();
   }
@@ -203,7 +267,7 @@ if (eventFilters.length && agendaEvents.length) {
   }
 }
 
-/* Chatbot academico flotante (abierto por defecto) */
+/* Chatbot academico flotante con bordes curvos (abierto por defecto) */
 function buildReply(userText) {
   const q = normalizeText(userText);
   const data = window.ACADEMIC_DATA || {};
@@ -220,33 +284,37 @@ function buildReply(userText) {
     }
     const pending = steps.filter(s => !s.done);
     if (!pending.length) {
-      return "Tienes todos los pasos del Trabajo 3 marcados como listos. El plazo es el martes 24 nov a las 16:30.";
+      return "Tienes todos los pasos del Trabajo 3 marcados como listos. La entrega es el martes 24 nov a las 16:30.";
     }
     const names = pending.slice(0, 3).map(s => s.title).join("; ");
     return `Te quedan ${pending.length} pasos en Trabajo 3 (entrega 24 nov, 16:30): ${names}.`;
   }
 
   if (q.includes("nota") || q.includes("promedio") || q.includes("aprobar") || q.includes("simulador")) {
-    return "En la sección Simulador puedes mover la nota de la Ev3 en cada ramo: actualmente tu NP promedio proyectada es 5.56 con todos los ramos sobre 4.8.";
+    return "En el Simulador tienes tus 4 ramos: Interfaz y Metodologías están en verde (sobre 5.5), Construcción en amarillo y Análisis y Diseño OO en rojo para priorizar.";
+  }
+
+  if (q.includes("horario") || q.includes("bloque")) {
+    return "En la sección Agenda (abajo de la lista de eventos) tienes tu Horario semanal de lunes a viernes para los 4 ramos.";
   }
 
   if (q.includes("entrega") || q.includes("proxima") || q.includes("plazo") || q.includes("cuando")) {
     const entregas = events.filter(e => e.category === "entrega");
-    const list = entregas.map(e => `${e.title} (${e.course}, ${e.monthLabel} ${e.time})`).join(" | ");
+    const list = entregas.map(e => `${e.title} (${e.course}, ${e.monthLabel})`).join(" | ");
     return `Entregas próximas: ${list}.`;
   }
 
   if (q.includes("agenda") || q.includes("semana") || q.includes("evento") || q.includes("evaluacion") || q.includes("clase")) {
-    const list = events.slice(0, 4).map(e => `${e.monthLabel} ${e.time}: ${e.title} (${e.course})`).join(" | ");
+    const list = events.slice(0, 4).map(e => `${e.monthLabel}: ${e.title} (${e.course})`).join(" | ");
     return `Próximos eventos en agenda: ${list}.`;
   }
 
   if (q.includes("ramo") || q.includes("asignatura")) {
     const list = courses.map(c => `${c.name} (${c.progress}%)`).join(", ");
-    return `Tus asignaturas en seguimiento son: ${list}.`;
+    return `Tus 4 asignaturas son: ${list}.`;
   }
 
-  return "Puedo ayudarte con tus próximas entregas, pasos pendientes del Trabajo 3, eventos de la agenda o la estrategia de notas del Simulador.";
+  return "Pregúntame por tus próximas entregas, pasos del Trabajo 3, el simulador de los 4 ramos o el horario semanal.";
 }
 
 function initChatbot() {
@@ -258,13 +326,13 @@ function initChatbot() {
     <div id="chatbot-panel" class="chatbot-panel">
       <div class="chatbot-header">
         <strong>Asistente académico</strong>
-        <button id="chatbot-close" class="modal-close" type="button" aria-label="Minimizar asistente">−</button>
+        <button id="chatbot-close" class="chatbot-min-btn" type="button" aria-label="Minimizar asistente">−</button>
       </div>
       <div class="chatbot-chips" aria-label="Consultas rápidas">
         <button type="button" class="chatbot-chip" data-prompt="¿Qué falta del Trabajo 3?">Trabajo 3</button>
         <button type="button" class="chatbot-chip" data-prompt="¿Cómo voy en notas?">Simulador</button>
         <button type="button" class="chatbot-chip" data-prompt="¿Cuál es la próxima entrega?">Entregas</button>
-        <button type="button" class="chatbot-chip" data-prompt="Eventos de la semana">Agenda</button>
+        <button type="button" class="chatbot-chip" data-prompt="Ver horario semanal">Horario</button>
       </div>
       <div id="chatbot-messages" class="chatbot-messages" aria-live="polite"></div>
       <form id="chatbot-form" class="chatbot-form">
@@ -290,7 +358,7 @@ function initChatbot() {
   const chips = [...widget.querySelectorAll(".chatbot-chip")];
 
   let history = [
-    { role: "bot", text: "Hola Francisco. Pregúntame por tus notas, el simulador de examen o lo que falta del Trabajo 3." }
+    { role: "bot", text: "Hola Francisco. Pregúntame por el temporizador del Trabajo 3, tus 4 ramos en el simulador o tu horario." }
   ];
 
   try {
@@ -335,7 +403,6 @@ function initChatbot() {
     }
   }
 
-  /* Abierto por defecto en escritorio, minimizado en pantallas muy pequenas para no tapar todo */
   const defaultOpen = window.innerWidth > 600;
   setOpen(defaultOpen, false);
 

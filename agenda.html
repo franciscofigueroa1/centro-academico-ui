@@ -34,7 +34,7 @@
             <span class="profile-avatar" aria-hidden="true">F</span>
             <div class="profile-meta">
               <span class="profile-name">Francisco</span>
-              <span class="profile-sub">2026-2</span>
+              <span class="profile-sub">Semestre actual</span>
             </div>
           </div>
           <button id="api-config-btn" class="api-button is-connected" type="button">
@@ -93,6 +93,54 @@
             <button id="agenda-reset" class="secondary-button" type="button">Limpiar filtros</button>
           </div>
         </section>
+
+        <section class="panel schedule-panel" aria-labelledby="schedule-title">
+          <div class="section-heading">
+            <h2 id="schedule-title">Horario</h2>
+            <span class="week-badge">Semana tipo</span>
+          </div>
+
+          <div class="grades-table-wrap">
+            <table class="grades-table schedule-table">
+              <thead>
+                <tr>
+                  <th scope="col">Bloque</th>
+                  <th scope="col">Lunes</th>
+                  <th scope="col">Martes</th>
+                  <th scope="col">Miércoles</th>
+                  <th scope="col">Jueves</th>
+                  <th scope="col">Viernes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono-cell"><strong>Mañana A</strong></td>
+                  <td><span class="schedule-chip chip-violet">Interfaz de Usuario</span></td>
+                  <td><span class="schedule-chip chip-free">Estudio libre</span></td>
+                  <td><span class="schedule-chip chip-blue">Construcción de Software</span></td>
+                  <td><span class="schedule-chip chip-rose">Metodologías y Calidad</span></td>
+                  <td><span class="schedule-chip chip-free">Estudio libre</span></td>
+                </tr>
+                <tr>
+                  <td class="mono-cell"><strong>Mañana B</strong></td>
+                  <td><span class="schedule-chip chip-mint">Análisis y Diseño OO</span></td>
+                  <td><span class="schedule-chip chip-violet">Interfaz de Usuario</span></td>
+                  <td><span class="schedule-chip chip-free">Estudio libre</span></td>
+                  <td><span class="schedule-chip chip-blue">Construcción de Software</span></td>
+                  <td><span class="schedule-chip chip-rose">Metodologías y Calidad</span></td>
+                </tr>
+                <tr>
+                  <td class="mono-cell"><strong>Tarde</strong></td>
+                  <td><span class="schedule-chip chip-free">Avance proyectos</span></td>
+                  <td><span class="schedule-chip chip-mint">Análisis y Diseño OO</span></td>
+                  <td><span class="schedule-chip chip-violet">Taller Interfaz</span></td>
+                  <td><span class="schedule-chip chip-free">Avance proyectos</span></td>
+                  <td><span class="schedule-chip chip-mint">Práctica UML</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </main>
     </div>
 
@@ -106,7 +154,7 @@
         <form id="event-form" class="modal-form" novalidate>
           <div class="form-field">
             <label for="event-title">Título</label>
-            <input id="event-title" type="text" maxlength="80" placeholder="Ej: Control 2 o Entrega informe" required>
+            <input id="event-title" type="text" maxlength="80" placeholder="Ej: Control o Entrega informe" required>
             <p id="event-error" class="field-error" role="alert" hidden></p>
           </div>
 
@@ -138,8 +186,12 @@
             </div>
 
             <div class="form-field">
-              <label for="event-time">Hora</label>
-              <input id="event-time" type="time" value="16:30" required>
+              <label for="event-time">Bloque</label>
+              <select id="event-time">
+                <option value="Bloque mañana">Bloque mañana</option>
+                <option value="Bloque tarde">Bloque tarde</option>
+                <option value="Entrega web">Entrega web</option>
+              </select>
             </div>
           </div>
 

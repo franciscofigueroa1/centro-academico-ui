@@ -81,13 +81,22 @@ function updateSummary() {
   if (stepsBar) stepsBar.style.width = `${percent}%`;
   if (stepsEmpty) stepsEmpty.hidden = total > 0;
 
+  const evalPanel = document.querySelector(".eval-panel");
   if (evalStatus) {
+    evalStatus.classList.remove("is-complete", "is-danger");
+    if (evalPanel) evalPanel.classList.remove("state-good", "state-warn", "state-bad");
+
     if (total > 0 && doneCount === total) {
       evalStatus.textContent = "Lista para entregar";
       evalStatus.classList.add("is-complete");
+      if (evalPanel) evalPanel.classList.add("state-good");
+    } else if (percent < 50) {
+      evalStatus.textContent = "Atrasado - Priorizar";
+      evalStatus.classList.add("is-danger");
+      if (evalPanel) evalPanel.classList.add("state-bad");
     } else {
       evalStatus.textContent = "En progreso";
-      evalStatus.classList.remove("is-complete");
+      if (evalPanel) evalPanel.classList.add("state-warn");
     }
   }
 }

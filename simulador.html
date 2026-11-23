@@ -34,7 +34,7 @@
             <span class="profile-avatar" aria-hidden="true">F</span>
             <div class="profile-meta">
               <span class="profile-name">Francisco</span>
-              <span class="profile-sub">2026-2</span>
+              <span class="profile-sub">Semestre actual</span>
             </div>
           </div>
           <button id="api-config-btn" class="api-button is-connected" type="button">
@@ -48,83 +48,65 @@
       <main id="simulador-contenido" class="page-shell" tabindex="-1">
         <header class="welcome">
           <div>
-            <p class="date-label">Cierre de semestre 2026-2</p>
-            <h1>Simulador de notas y examen</h1>
+            <p class="date-label">Cálculo interactivo</p>
+            <h1>Simulador de notas</h1>
           </div>
           <button id="sim-reset-all" class="secondary-button" type="button">Restaurar notas base</button>
         </header>
 
         <section class="sim-rules-bar" aria-label="Reglas de ponderación">
           <div class="sim-rule-pill"><strong>NP (60%):</strong> Ev1 (25%) + Ev2 (35%) + Ev3 (40%)</div>
-          <div class="sim-rule-pill"><strong>Derecho a examen:</strong> NP &ge; 2.0</div>
           <div class="sim-rule-pill"><strong>Aprobación:</strong> NP &times; 0.6 + Examen &times; 0.4 &ge; 4.0</div>
+          <div class="sim-rule-pill state-pill-good"><strong>Verde:</strong> Sobre 5.0</div>
+          <div class="sim-rule-pill state-pill-bad"><strong>Rojo:</strong> Bajo 4.0 (en riesgo)</div>
         </section>
 
         <section aria-labelledby="sim-grid-title">
           <div class="section-heading">
-            <h2 id="sim-grid-title">Proyección de tercera evaluación (Ev3) y examen</h2>
-            <span id="sim-summary-badge" class="week-badge" aria-live="polite">NP promedio proyectada: 5.65</span>
+            <h2 id="sim-grid-title">Simulación por asignatura (4 ramos)</h2>
+            <span id="sim-summary-badge" class="sim-badge" aria-live="polite">Calculando...</span>
           </div>
           <div id="sim-courses-grid" class="sim-pro-grid"></div>
         </section>
 
         <section class="panel sim-exams-panel" aria-labelledby="exams-table-title">
           <div class="section-heading">
-            <h2 id="exams-table-title">Calendario de exámenes finales</h2>
+            <h2 id="exams-table-title">Resumen de evaluaciones finales</h2>
           </div>
           <div class="grades-table-wrap">
             <table class="grades-table">
               <thead>
                 <tr>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Horario</th>
                   <th scope="col">Asignatura</th>
-                  <th scope="col">Sala</th>
-                  <th scope="col">Estado proyectado</th>
+                  <th scope="col">Evaluación 3</th>
+                  <th scope="col">Modalidad</th>
+                  <th scope="col">Estado</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="mono-cell"><strong>Lun 07 dic</strong></td>
-                  <td class="mono-cell">11:10 - 12:30</td>
-                  <td>Matemática Aplicada</td>
-                  <td class="mono-cell">S-305</td>
-                  <td><span class="sim-badge b-high">Reforzar Certamen 2</span></td>
+                <tr class="row-good">
+                  <td><strong>Interfaz de Usuario</strong></td>
+                  <td>Trabajo 3 - Maqueta web</td>
+                  <td>Entrega web + Figma</td>
+                  <td><span class="sim-badge b-low">Todo bien (NP &ge; 5.5)</span></td>
                 </tr>
-                <tr>
-                  <td class="mono-cell"><strong>Mié 09 dic</strong></td>
-                  <td class="mono-cell">11:10 - 13:40</td>
-                  <td>Construcción de Software</td>
-                  <td class="mono-cell">L-201</td>
-                  <td><span class="sim-badge b-med">Meta Ev3 &ge; 5.0</span></td>
+                <tr class="row-warn">
+                  <td><strong>Construcción de Software</strong></td>
+                  <td>Defensa de proyecto</td>
+                  <td>Demostración práctica</td>
+                  <td><span class="sim-badge b-med">Atención (subir Ev3)</span></td>
                 </tr>
-                <tr>
-                  <td class="mono-cell"><strong>Vie 11 dic</strong></td>
-                  <td class="mono-cell">11:10 - 12:30</td>
-                  <td>Taller de Nuevas Tecnologías</td>
-                  <td class="mono-cell">L-204</td>
-                  <td><span class="sim-badge b-low">Promedio favorable</span></td>
+                <tr class="row-good">
+                  <td><strong>Metodologías y Calidad</strong></td>
+                  <td>Trabajo 2 - Presentación</td>
+                  <td>Exposición grupal</td>
+                  <td><span class="sim-badge b-low">Todo bien (NP &ge; 5.5)</span></td>
                 </tr>
-                <tr>
-                  <td class="mono-cell"><strong>Lun 14 dic</strong></td>
-                  <td class="mono-cell">13:00 - 14:20</td>
-                  <td>Interfaz de Usuario</td>
-                  <td class="mono-cell">L-203</td>
-                  <td><span class="sim-badge b-high">Cerrar Trabajo 3</span></td>
-                </tr>
-                <tr>
-                  <td class="mono-cell"><strong>Mar 15 dic</strong></td>
-                  <td class="mono-cell">08:10 - 10:20</td>
-                  <td>Análisis y Diseño OO</td>
-                  <td class="mono-cell">L-203</td>
-                  <td><span class="sim-badge b-med">Entregar diagrama UML</span></td>
-                </tr>
-                <tr>
-                  <td class="mono-cell"><strong>Vie 18 dic</strong></td>
-                  <td class="mono-cell">13:00 - 14:20</td>
-                  <td>Metodologías y Calidad</td>
-                  <td class="mono-cell">L-201</td>
-                  <td><span class="sim-badge b-low">Promedio favorable</span></td>
+                <tr class="row-bad">
+                  <td><strong>Análisis y Diseño OO</strong></td>
+                  <td>Entrega modelo UML</td>
+                  <td>Informe + diagramas</td>
+                  <td><span class="sim-badge b-crit">En riesgo (priorizar)</span></td>
                 </tr>
               </tbody>
             </table>
