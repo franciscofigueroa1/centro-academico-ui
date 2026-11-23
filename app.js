@@ -267,6 +267,28 @@ if (eventFilters.length && agendaEvents.length) {
   }
 }
 
+/* Filtro de bloques por asignatura en horario.html */
+const scheduleFilters = [...document.querySelectorAll("[data-schedule-filter]")];
+const scheduleCells = [...document.querySelectorAll("[data-course-cell]")];
+
+if (scheduleFilters.length && scheduleCells.length) {
+  for (const btn of scheduleFilters) {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.scheduleFilter || "all";
+
+      for (const current of scheduleFilters) {
+        current.setAttribute("aria-pressed", String(current === btn));
+      }
+
+      for (const cell of scheduleCells) {
+        const match = target === "all" || cell.dataset.courseCell === target;
+        cell.classList.toggle("is-dimmed", !match);
+        cell.classList.toggle("is-highlighted", target !== "all" && match);
+      }
+    });
+  }
+}
+
 /* Chatbot academico flotante con bordes curvos (abierto por defecto) */
 function buildReply(userText) {
   const q = normalizeText(userText);

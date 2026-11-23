@@ -1,15 +1,15 @@
 # Centro académico
 
-Maqueta funcional en HTML, CSS y JavaScript para organizar asignaturas, entregas, notas, simulador de cierre de semestre y agenda.
+Maqueta funcional en HTML, CSS y JavaScript para organizar las 4 asignaturas del semestre, sus 3 notas parciales (`Nota 1`, `Nota 2`, `Nota 3`), tareas, materiales, agenda, horario semanal y simulador de notas.
 
-## Secciones principales
+## 5 pantallas principales en el menú + 2 vistas de detalle
 
-- `index.html`: resumen semanal, avance de los 4 ramos y filtro rápido de eventos.
-- `asignaturas.html`: listado de los 4 ramos con filtro por nombre o código.
-- `agenda.html`: calendario completo desde `data.js`, buscador, filtro por ramo y tipo, marcado de eventos hechos y modal para agregar eventos.
-- `simulador.html`: simulador interactivo de cierre de semestre (Ev3 vs Examen) para los 6 ramos + calendario oficial de exámenes.
-- `interfaz.html` y `evaluacion.html`: detalle por asignatura (`?ramo=iu|cs|mc|ad`) y checklist del Trabajo 3 con modal de nuevo paso, validación y alerta de confirmación.
-- **Extras en todas las vistas**: botón de estado y configuración de API Canvas (`API funcionando` / `Configurar API`), modo claro/oscuro y asistente académico flotante abierto por defecto.
+1. `index.html` (**Inicio**): temporizador en vivo para la próxima entrega, desglose de pendientes, resumen de `Nota 1`, `Nota 2` y `Nota 3` por asignatura, filtro rápido de eventos y calendario semanal día por día (Lunes a Domingo).
+2. `asignaturas.html` (**Asignaturas**): listado de los 4 ramos con sus 3 notas, promedio actual y buscador en vivo.
+3. `agenda.html` (**Agenda**): eventos del semestre cargados desde `data.js`, buscador, filtros por ramo y tipo, marcado de eventos hechos, modal `+ Evento` y tabla de horario tipo.
+4. `horario.html` (**Horario**): distribución semanal completa de bloques de clases, talleres y estudio autónomo con filtro interactivo por asignatura.
+5. `simulador.html` (**Simulador**): simulador interactivo `Nota 3 vs Examen` en cuadrícula 2x2 para los 4 ramos, con cambio de color en vivo (verde, ámbar y rojo) según el riesgo académico.
+6. `interfaz.html` y `evaluacion.html` (**Detalles**): detalle dinámico por ramo (`?ramo=iu|cs|mc|ad`) con 4 tareas y 4-5 materiales ficticios por asignatura, más el checklist del Trabajo 3 con modal de nuevo paso, validación y alerta de confirmación.
 
 ## Ejecutar
 

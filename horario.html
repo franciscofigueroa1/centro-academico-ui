@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f4fa">
+    <title>Horario | Centro académico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#horario-contenido">Saltar al contenido principal</a>
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="Menú principal">
+        <a class="brand" href="index.html" aria-label="Centro académico, inicio">
+          <span class="brand-mark" aria-hidden="true">CA</span>
+          <span class="brand-name">Centro académico</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a class="nav-link" href="index.html">Inicio</a>
+          <a class="nav-link" href="asignaturas.html">Asignaturas</a>
+          <a class="nav-link" href="agenda.html">Agenda</a>
+          <a class="nav-link is-active" href="horario.html" aria-current="page">Horario</a>
+          <a class="nav-link" href="simulador.html">Simulador</a>
+        </nav>
+
+        <div class="sidebar-footer" aria-label="Perfil, API y tema">
+          <div class="profile-row">
+            <span class="profile-avatar" aria-hidden="true">F</span>
+            <div class="profile-meta">
+              <span class="profile-name">Francisco</span>
+              <span class="profile-sub">Semestre actual</span>
+            </div>
+          </div>
+          <button id="api-config-btn" class="api-button is-connected" type="button">
+            <span class="api-dot" aria-hidden="true"></span>
+            <span id="api-btn-label">API funcionando</span>
+          </button>
+          <button id="theme-toggle" class="theme-button" type="button" aria-pressed="false">Modo oscuro</button>
+        </div>
+      </aside>
+
+      <main id="horario-contenido" class="page-shell" tabindex="-1">
+        <header class="welcome">
+          <div>
+            <p class="date-label">Distribución semanal</p>
+            <h1>Horario de clases y estudio</h1>
+          </div>
+          <a class="calendar-button" href="agenda.html">Ver agenda de entregas</a>
+        </header>
+
+        <section class="summary-grid" aria-label="Resumen de bloques">
+          <article class="summary-card state-good">
+            <div class="summary-top">
+              <p class="summary-label">Bloques de clases</p>
+              <span class="sim-badge b-low">4 ramos</span>
+            </div>
+            <p class="summary-value">12 bloques <span>3 sesiones por asignatura</span></p>
+          </article>
+
+          <article class="summary-card state-warn">
+            <div class="summary-top">
+              <p class="summary-label">Práctica y taller</p>
+              <span class="sim-badge b-med">Enfoque</span>
+            </div>
+            <p class="summary-value">4 bloques <span>Refuerzo UML y Trabajo 3 UI</span></p>
+          </article>
+
+          <article class="summary-card state-good">
+            <div class="summary-top">
+              <p class="summary-label">Estudio autónomo</p>
+              <span class="sim-badge b-low">Organizado</span>
+            </div>
+            <p class="summary-value">4 bloques <span>Repaso y preparación de N3</span></p>
+          </article>
+        </section>
+
+        <section class="panel" aria-labelledby="schedule-main-title">
+          <div class="section-heading">
+            <h2 id="schedule-main-title">Bloques de lunes a viernes</h2>
+            <div class="agenda-filters" role="group" aria-label="Resaltar asignatura en horario">
+              <button class="agenda-filter" type="button" data-schedule-filter="all" aria-pressed="true">Todos</button>
+              <button class="agenda-filter" type="button" data-schedule-filter="iu" aria-pressed="false">Interfaz</button>
+              <button class="agenda-filter" type="button" data-schedule-filter="cs" aria-pressed="false">Construcción</button>
+              <button class="agenda-filter" type="button" data-schedule-filter="mc" aria-pressed="false">Metodologías</button>
+              <button class="agenda-filter" type="button" data-schedule-filter="ad" aria-pressed="false">Análisis OO</button>
+            </div>
+          </div>
+
+          <div class="grades-table-wrap">
+            <table class="grades-table schedule-table">
+              <thead>
+                <tr>
+                  <th scope="col">Tramo</th>
+                  <th scope="col">Lunes</th>
+                  <th scope="col">Martes</th>
+                  <th scope="col">Miércoles</th>
+                  <th scope="col">Jueves</th>
+                  <th scope="col">Viernes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono-cell"><strong>Bloque 1 (Mañana)</strong></td>
+                  <td data-course-cell="iu">
+                    <a href="interfaz.html?ramo=iu" class="schedule-chip chip-violet">
+                      <strong>Interfaz de Usuario</strong>
+                      <span>Teoría y revisión UI</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="cs">
+                    <a href="interfaz.html?ramo=cs" class="schedule-chip chip-blue">
+                      <strong>Construcción de Software</strong>
+                      <span>Arquitectura y capas</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="iu">
+                    <a href="interfaz.html?ramo=iu" class="schedule-chip chip-violet">
+                      <strong>Interfaz de Usuario</strong>
+                      <span>Laboratorio HTML/CSS</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="mc">
+                    <a href="interfaz.html?ramo=mc" class="schedule-chip chip-rose">
+                      <strong>Metodologías y Calidad</strong>
+                      <span>Gestión Scrum y QA</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="ad">
+                    <a href="interfaz.html?ramo=ad" class="schedule-chip chip-mint">
+                      <strong>Análisis y Diseño OO</strong>
+                      <span>Modelado de casos</span>
+                    </a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="mono-cell"><strong>Bloque 2 (Mediodía)</strong></td>
+                  <td data-course-cell="ad">
+                    <a href="interfaz.html?ramo=ad" class="schedule-chip chip-mint">
+                      <strong>Análisis y Diseño OO</strong>
+                      <span>Diagramas de secuencia</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="iu">
+                    <a href="evaluacion.html" class="schedule-chip chip-violet">
+                      <strong>Interfaz de Usuario</strong>
+                      <span>Taller Trabajo 3</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="cs">
+                    <a href="interfaz.html?ramo=cs" class="schedule-chip chip-blue">
+                      <strong>Construcción de Software</strong>
+                      <span>Taller de API REST</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="cs">
+                    <a href="interfaz.html?ramo=cs" class="schedule-chip chip-blue">
+                      <strong>Construcción de Software</strong>
+                      <span>Pruebas de integración</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="mc">
+                    <a href="interfaz.html?ramo=mc" class="schedule-chip chip-rose">
+                      <strong>Metodologías y Calidad</strong>
+                      <span>Métricas ISO 25010</span>
+                    </a>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="mono-cell"><strong>Bloque 3 (Tarde)</strong></td>
+                  <td data-course-cell="free">
+                    <span class="schedule-chip chip-free">
+                      <strong>Estudio personal</strong>
+                      <span>Avance maqueta web</span>
+                    </span>
+                  </td>
+                  <td data-course-cell="ad">
+                    <a href="interfaz.html?ramo=ad" class="schedule-chip chip-mint">
+                      <strong>Análisis y Diseño OO</strong>
+                      <span>Refuerzo Nota 3 UML</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="mc">
+                    <a href="interfaz.html?ramo=mc" class="schedule-chip chip-rose">
+                      <strong>Metodologías y Calidad</strong>
+                      <span>Revisión de informe</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="free">
+                    <span class="schedule-chip chip-free">
+                      <strong>Estudio personal</strong>
+                      <span>Práctica diagramas GRASP</span>
+                    </span>
+                  </td>
+                  <td data-course-cell="free">
+                    <span class="schedule-chip chip-free">
+                      <strong>Cierre semanal</strong>
+                      <span>Organizar entregas</span>
+                    </span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="mono-cell"><strong>Bloque 4 (Tarde B)</strong></td>
+                  <td data-course-cell="mc">
+                    <a href="interfaz.html?ramo=mc" class="schedule-chip chip-rose">
+                      <strong>Metodologías y Calidad</strong>
+                      <span>Trabajo en equipo</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="free">
+                    <span class="schedule-chip chip-free">
+                      <strong>Estudio personal</strong>
+                      <span>Revisión de apuntes</span>
+                    </span>
+                  </td>
+                  <td data-course-cell="ad">
+                    <a href="interfaz.html?ramo=ad" class="schedule-chip chip-mint">
+                      <strong>Análisis y Diseño OO</strong>
+                      <span>Consultas y ejercicios</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="iu">
+                    <a href="interfaz.html?ramo=iu" class="schedule-chip chip-violet">
+                      <strong>Interfaz de Usuario</strong>
+                      <span>Pruebas responsive</span>
+                    </a>
+                  </td>
+                  <td data-course-cell="cs">
+                    <a href="interfaz.html?ramo=cs" class="schedule-chip chip-blue">
+                      <strong>Construcción de Software</strong>
+                      <span>Avance defensa final</span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
