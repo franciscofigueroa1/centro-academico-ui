@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f4fa">
+    <title>Simulador | Centro académico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
+    <script src="app.js" defer></script>
+    <script src="simulador.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#simulador-contenido">Saltar al contenido principal</a>
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="Menú principal">
+        <a class="brand" href="index.html" aria-label="Centro académico, inicio">
+          <span class="brand-mark" aria-hidden="true">CA</span>
+          <span class="brand-name">Centro académico</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a class="nav-link" href="index.html">Inicio</a>
+          <a class="nav-link" href="asignaturas.html">Asignaturas</a>
+          <a class="nav-link" href="agenda.html">Agenda</a>
+          <a class="nav-link is-active" href="simulador.html" aria-current="page">Simulador</a>
+        </nav>
+
+        <div class="sidebar-footer" aria-label="Perfil, API y tema">
+          <div class="profile-row">
+            <span class="profile-avatar" aria-hidden="true">F</span>
+            <div class="profile-meta">
+              <span class="profile-name">Francisco</span>
+              <span class="profile-sub">2026-2</span>
+            </div>
+          </div>
+          <button id="api-config-btn" class="api-button is-connected" type="button">
+            <span class="api-dot" aria-hidden="true"></span>
+            <span id="api-btn-label">API funcionando</span>
+          </button>
+          <button id="theme-toggle" class="theme-button" type="button" aria-pressed="false">Modo oscuro</button>
+        </div>
+      </aside>
+
+      <main id="simulador-contenido" class="page-shell" tabindex="-1">
+        <header class="welcome">
+          <div>
+            <p class="date-label">Cierre de semestre 2026-2</p>
+            <h1>Simulador de notas y examen</h1>
+          </div>
+          <button id="sim-reset-all" class="secondary-button" type="button">Restaurar notas base</button>
+        </header>
+
+        <section class="sim-rules-bar" aria-label="Reglas de ponderación">
+          <div class="sim-rule-pill"><strong>NP (60%):</strong> Ev1 (25%) + Ev2 (35%) + Ev3 (40%)</div>
+          <div class="sim-rule-pill"><strong>Derecho a examen:</strong> NP &ge; 2.0</div>
+          <div class="sim-rule-pill"><strong>Aprobación:</strong> NP &times; 0.6 + Examen &times; 0.4 &ge; 4.0</div>
+        </section>
+
+        <section aria-labelledby="sim-grid-title">
+          <div class="section-heading">
+            <h2 id="sim-grid-title">Proyección de tercera evaluación (Ev3) y examen</h2>
+            <span id="sim-summary-badge" class="week-badge" aria-live="polite">NP promedio proyectada: 5.65</span>
+          </div>
+          <div id="sim-courses-grid" class="sim-pro-grid"></div>
+        </section>
+
+        <section class="panel sim-exams-panel" aria-labelledby="exams-table-title">
+          <div class="section-heading">
+            <h2 id="exams-table-title">Calendario de exámenes finales</h2>
+          </div>
+          <div class="grades-table-wrap">
+            <table class="grades-table">
+              <thead>
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Horario</th>
+                  <th scope="col">Asignatura</th>
+                  <th scope="col">Sala</th>
+                  <th scope="col">Estado proyectado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mono-cell"><strong>Lun 07 dic</strong></td>
+                  <td class="mono-cell">11:10 - 12:30</td>
+                  <td>Matemática Aplicada</td>
+                  <td class="mono-cell">S-305</td>
+                  <td><span class="sim-badge b-high">Reforzar Certamen 2</span></td>
+                </tr>
+                <tr>
+                  <td class="mono-cell"><strong>Mié 09 dic</strong></td>
+                  <td class="mono-cell">11:10 - 13:40</td>
+                  <td>Construcción de Software</td>
+                  <td class="mono-cell">L-201</td>
+                  <td><span class="sim-badge b-med">Meta Ev3 &ge; 5.0</span></td>
+                </tr>
+                <tr>
+                  <td class="mono-cell"><strong>Vie 11 dic</strong></td>
+                  <td class="mono-cell">11:10 - 12:30</td>
+                  <td>Taller de Nuevas Tecnologías</td>
+                  <td class="mono-cell">L-204</td>
+                  <td><span class="sim-badge b-low">Promedio favorable</span></td>
+                </tr>
+                <tr>
+                  <td class="mono-cell"><strong>Lun 14 dic</strong></td>
+                  <td class="mono-cell">13:00 - 14:20</td>
+                  <td>Interfaz de Usuario</td>
+                  <td class="mono-cell">L-203</td>
+                  <td><span class="sim-badge b-high">Cerrar Trabajo 3</span></td>
+                </tr>
+                <tr>
+                  <td class="mono-cell"><strong>Mar 15 dic</strong></td>
+                  <td class="mono-cell">08:10 - 10:20</td>
+                  <td>Análisis y Diseño OO</td>
+                  <td class="mono-cell">L-203</td>
+                  <td><span class="sim-badge b-med">Entregar diagrama UML</span></td>
+                </tr>
+                <tr>
+                  <td class="mono-cell"><strong>Vie 18 dic</strong></td>
+                  <td class="mono-cell">13:00 - 14:20</td>
+                  <td>Metodologías y Calidad</td>
+                  <td class="mono-cell">L-201</td>
+                  <td><span class="sim-badge b-low">Promedio favorable</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

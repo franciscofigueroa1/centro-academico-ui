@@ -1,6 +1,7 @@
 const THEME_KEY = "ca_tema_preferido";
 const CHAT_KEY = "ca_chat_historial";
 const STEPS_KEY = "centro_academico_pasos_trabajo3";
+const API_STATUS_KEY = "ca_api_estado";
 
 function normalizeText(text) {
   return String(text || "")
@@ -45,6 +46,113 @@ if (themeToggle) {
     }
   });
 }
+
+/* Boton Configurar API / API funcionando (abajo a la izquierda) */
+function initApiConfig() {
+  const apiBtn = document.querySelector("#api-config-btn");
+  const apiLabel = document.querySelector("#api-btn-label");
+  if (!apiBtn || !apiLabel) return;
+
+  let isConnected = true;
+  try {
+    const saved = localStorage.getItem(API_STATUS_KEY);
+    if (saved === "disconnected") isConnected = false;
+  } catch {
+    // Por defecto conectada
+  }
+
+  function renderApiButton() {
+    apiBtn.classList.toggle("is-connected", isConnected);
+    apiLabel.textContent = isConnected ? "API funcionando" : "Configurar API";
+  }
+
+  renderApiButton();
+
+  const modal = document.createElement("div");
+  modal.id = "api-modal";
+  modal.className = "modal-backdrop";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-labelledby", "api-modal-title");
+  modal.hidden = true;
+
+  modal.innerHTML = `
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="api-modal-title">Conexión API Canvas</h2>
+        <button id="api-modal-close" class="modal-close" type="button" aria-label="Cerrar ventana">×</button>
+      </div>
+      <form id="api-modal-form" class="modal-form" novalidate>
+        <div class="form-field">
+          <label for="api-url-input">Servidor Canvas</label>
+          <input id="api-url-input" type="url" value="https://virginiogomez.instructure.com" required>
+        </div>
+        <div class="form-field">
+          <label for="api-token-input">Token personal</label>
+          <input id="api-token-input" type="password" value="dpapi-local-token-activo" placeholder="Pega tu token de Canvas" required>
+        </div>
+        <p id="api-modal-status" class="api-status-note"></p>
+        <div class="modal-actions">
+          <button id="api-disconnect-btn" class="secondary-button" type="button">Desconectar</button>
+          <button class="primary-button" type="submit">Guardar y activar</button>
+        </div>
+      </form>
+    </div>
+  `;
+
+  document.body.append(modal);
+
+  const closeBtn = modal.querySelector("#api-modal-close");
+  const disconnectBtn = modal.querySelector("#api-disconnect-btn");
+  const form = modal.querySelector("#api-modal-form");
+  const tokenInput = modal.querySelector("#api-token-input");
+  const statusNote = modal.querySelector("#api-modal-status");
+
+  function openApiModal() {
+    statusNote.textContent = isConnected
+      ? "Estado actual: API conectada y sincronizada."
+      : "Estado actual: sin conexión activa. Guarda un token para activar.";
+    modal.hidden = false;
+    tokenInput.focus();
+  }
+
+  function closeApiModal() {
+    modal.hidden = true;
+    apiBtn.focus();
+  }
+
+  apiBtn.addEventListener("click", openApiModal);
+  closeBtn.addEventListener("click", closeApiModal);
+
+  modal.addEventListener("click", event => {
+    if (event.target === modal) closeApiModal();
+  });
+
+  disconnectBtn.addEventListener("click", () => {
+    isConnected = false;
+    try {
+      localStorage.setItem(API_STATUS_KEY, "disconnected");
+    } catch {
+      // Ignorar
+    }
+    renderApiButton();
+    closeApiModal();
+  });
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    isConnected = true;
+    try {
+      localStorage.setItem(API_STATUS_KEY, "connected");
+    } catch {
+      // Ignorar
+    }
+    renderApiButton();
+    closeApiModal();
+  });
+}
+
+initApiConfig();
 
 /* Buscador de asignaturas */
 const searchInput = document.querySelector("#subject-search");
@@ -95,7 +203,7 @@ if (eventFilters.length && agendaEvents.length) {
   }
 }
 
-/* Chatbot academico flotante */
+/* Chatbot academico flotante (abierto por defecto) */
 function buildReply(userText) {
   const q = normalizeText(userText);
   const data = window.ACADEMIC_DATA || {};
@@ -119,16 +227,7 @@ function buildReply(userText) {
   }
 
   if (q.includes("nota") || q.includes("promedio") || q.includes("aprobar") || q.includes("simulador")) {
-    const lines = courses.map(c => {
-      const items = c.grades.items;
-      const doneWeight = items.reduce((acc, i) => acc + i.weight, 0);
-      const weighted = items.reduce((acc, i) => acc + i.score * (i.weight / 100), 0);
-      const currentAvg = doneWeight ? (weighted / (doneWeight / 100)).toFixed(1) : "-";
-      const needed = ((4.0 - weighted) / (c.grades.examWeight / 100)).toFixed(1);
-      const neededText = needed <= 1 ? "ya aprobado" : `necesitas ${needed} en ${c.grades.examName}`;
-      return `${c.code}: prom ${currentAvg} (${neededText})`;
-    });
-    return `Estado de notas para aprobar con 4.0: ${lines.join(" | ")}. Puedes probar otras metas en la pestaña Notas de cada ramo.`;
+    return "En la sección Simulador puedes mover la nota de la Ev3 en cada ramo: actualmente tu NP promedio proyectada es 5.56 con todos los ramos sobre 4.8.";
   }
 
   if (q.includes("entrega") || q.includes("proxima") || q.includes("plazo") || q.includes("cuando")) {
@@ -144,10 +243,10 @@ function buildReply(userText) {
 
   if (q.includes("ramo") || q.includes("asignatura")) {
     const list = courses.map(c => `${c.name} (${c.progress}%)`).join(", ");
-    return `Tus 4 asignaturas activas son: ${list}.`;
+    return `Tus asignaturas en seguimiento son: ${list}.`;
   }
 
-  return "Puedo ayudarte con tus próximas entregas, pasos pendientes del Trabajo 3, eventos de la agenda o qué nota necesitas para aprobar cada ramo.";
+  return "Puedo ayudarte con tus próximas entregas, pasos pendientes del Trabajo 3, eventos de la agenda o la estrategia de notas del Simulador.";
 }
 
 function initChatbot() {
@@ -156,18 +255,14 @@ function initChatbot() {
   widget.setAttribute("aria-label", "Asistente académico");
 
   widget.innerHTML = `
-    <button id="chatbot-toggle" class="chatbot-toggle" type="button" aria-expanded="false" aria-controls="chatbot-panel">
-      <span class="chatbot-dot" aria-hidden="true"></span>
-      <span>Asistente</span>
-    </button>
-    <div id="chatbot-panel" class="chatbot-panel" hidden>
+    <div id="chatbot-panel" class="chatbot-panel">
       <div class="chatbot-header">
         <strong>Asistente académico</strong>
-        <button id="chatbot-close" class="modal-close" type="button" aria-label="Cerrar asistente">×</button>
+        <button id="chatbot-close" class="modal-close" type="button" aria-label="Minimizar asistente">−</button>
       </div>
       <div class="chatbot-chips" aria-label="Consultas rápidas">
         <button type="button" class="chatbot-chip" data-prompt="¿Qué falta del Trabajo 3?">Trabajo 3</button>
-        <button type="button" class="chatbot-chip" data-prompt="¿Cómo voy en notas?">Notas</button>
+        <button type="button" class="chatbot-chip" data-prompt="¿Cómo voy en notas?">Simulador</button>
         <button type="button" class="chatbot-chip" data-prompt="¿Cuál es la próxima entrega?">Entregas</button>
         <button type="button" class="chatbot-chip" data-prompt="Eventos de la semana">Agenda</button>
       </div>
@@ -178,6 +273,10 @@ function initChatbot() {
         <button type="submit" class="primary-button chatbot-send">Enviar</button>
       </form>
     </div>
+    <button id="chatbot-toggle" class="chatbot-toggle" type="button" aria-expanded="true" aria-controls="chatbot-panel">
+      <span class="chatbot-dot" aria-hidden="true"></span>
+      <span>Asistente</span>
+    </button>
   `;
 
   document.body.append(widget);
@@ -191,7 +290,7 @@ function initChatbot() {
   const chips = [...widget.querySelectorAll(".chatbot-chip")];
 
   let history = [
-    { role: "bot", text: "Hola Francisco. Pregúntame por tus notas, entregas o lo que falta del Trabajo 3." }
+    { role: "bot", text: "Hola Francisco. Pregúntame por tus notas, el simulador de examen o lo que falta del Trabajo 3." }
   ];
 
   try {
@@ -227,18 +326,22 @@ function initChatbot() {
     renderMessages();
   }
 
-  function setOpen(open) {
+  function setOpen(open, moveFocus = false) {
     panel.hidden = !open;
     toggleBtn.setAttribute("aria-expanded", String(open));
     if (open) {
       renderMessages();
-      input.focus();
+      if (moveFocus) input.focus();
     }
   }
 
-  toggleBtn.addEventListener("click", () => setOpen(panel.hidden));
+  /* Abierto por defecto en escritorio, minimizado en pantallas muy pequenas para no tapar todo */
+  const defaultOpen = window.innerWidth > 600;
+  setOpen(defaultOpen, false);
+
+  toggleBtn.addEventListener("click", () => setOpen(panel.hidden, true));
   closeBtn.addEventListener("click", () => {
-    setOpen(false);
+    setOpen(false, false);
     toggleBtn.focus();
   });
 

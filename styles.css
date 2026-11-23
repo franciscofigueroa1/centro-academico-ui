@@ -244,6 +244,61 @@ h1, h2, h3 {
   background: var(--surface-muted);
 }
 
+.api-button {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease);
+}
+
+.api-button:hover {
+  border-color: var(--violet);
+}
+
+.api-dot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  background: #d97706;
+}
+
+.api-button.is-connected {
+  border-color: #2b8a54;
+  background: #e6f7ed;
+  color: #165934;
+}
+
+.api-button.is-connected:hover {
+  background: #d6f2e2;
+}
+
+.api-button.is-connected .api-dot {
+  background: #16a34a;
+}
+
+html[data-theme="dark"] .api-button.is-connected {
+  border-color: #2e8b57;
+  background: #142e20;
+  color: #8ee6b2;
+}
+
+.api-status-note {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
 .page-shell {
   width: min(1040px, 100%);
   margin: 0 auto;
@@ -1596,6 +1651,218 @@ html[data-theme="dark"] .alert-banner {
 
 .agenda-empty[hidden] {
   display: none;
+}
+
+/* Vista Simulador Pro */
+.sim-rules-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sim-rule-pill {
+  padding: 7px 12px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sim-rule-pill strong {
+  color: var(--ink);
+}
+
+.sim-pro-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.sim-pro-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--violet);
+  background: var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.sim-pro-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sim-pro-top h3 {
+  margin: 0 0 3px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.sim-pro-meta {
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.sim-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.b-crit {
+  border-color: #e07a7a;
+  background: #fdecec;
+  color: #9b1c1c;
+}
+
+.b-high {
+  border-color: #e6a86a;
+  background: #fff3e6;
+  color: #9a4a06;
+}
+
+.b-med {
+  border-color: #dec067;
+  background: #fef9e7;
+  color: #856108;
+}
+
+.b-low {
+  border-color: #7ccca0;
+  background: #e6f7ed;
+  color: #165934;
+}
+
+html[data-theme="dark"] .b-crit {
+  border-color: #8a3030;
+  background: #361717;
+  color: #f8a4a4;
+}
+
+html[data-theme="dark"] .b-high {
+  border-color: #87501a;
+  background: #362210;
+  color: #f9bd82;
+}
+
+html[data-theme="dark"] .b-med {
+  border-color: #7a6318;
+  background: #332a10;
+  color: #f5d97e;
+}
+
+html[data-theme="dark"] .b-low {
+  border-color: #2c6b49;
+  background: #142e20;
+  color: #8ee6b2;
+}
+
+.sim-grades-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  background: var(--surface-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.sim-grades-row span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.sim-slider-box {
+  padding: 12px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+}
+
+.sim-slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.sim-slider-header strong {
+  font-family: var(--font-mono);
+  color: var(--violet-dark);
+}
+
+.sim-slider-box input[type="range"] {
+  width: 100%;
+  accent-color: var(--violet);
+  cursor: pointer;
+}
+
+.sim-pro-results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.sim-val-ok {
+  color: #166534;
+}
+
+.sim-val-warn {
+  color: #9a5b06;
+}
+
+.sim-val-bad {
+  color: #b4233c;
+}
+
+html[data-theme="dark"] .sim-val-ok {
+  color: #8ee6b2;
+}
+
+html[data-theme="dark"] .sim-val-warn {
+  color: #f5d478;
+}
+
+html[data-theme="dark"] .sim-val-bad {
+  color: #f898a8;
+}
+
+.sim-verdict {
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.sim-exams-panel {
+  margin-top: 8px;
 }
 
 /* Chatbot academico flotante */
