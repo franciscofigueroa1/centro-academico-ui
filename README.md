@@ -2,17 +2,17 @@
 
 Maqueta web en HTML, CSS y JavaScript para reunir en un solo lugar las asignaturas, tareas, notas y agenda del semestre.
 
+## Vistas incluidas
+
+- `index.html`: inicio con resumen del semestre, avance por ramo y eventos de la semana.
+- `asignaturas.html`: listado de ramos con buscador en vivo y estado sin resultados.
+- `interfaz.html`: detalle de asignatura con pestañas de Tareas, Materiales y Notas.
+- `evaluacion.html`: detalle del Trabajo 3 con checklist, progreso, modal de nuevo paso con validación y alerta de confirmación.
+- `agenda.html`: agenda completa generada desde datos en `data.js`, con búsqueda y filtros por tipo y asignatura.
+
 ## Cómo abrirlo
 
-Abre `index.html` directamente en el navegador. Desde Inicio puedes abrir `asignaturas.html` y el detalle de Interfaz de Usuario. No necesita instalar nada.
-
-Los datos de la maqueta son de ejemplo y no se consultan mediante la API de Canvas. Los enlaces de tareas, materiales y notas abren Canvas.
-
-En Inicio, la agenda permite filtrar los eventos por entregas, clases y evaluaciones.
-
-Desde el detalle de Interfaz de Usuario puedes abrir `evaluacion.html` para revisar el progreso del Trabajo 3 y agregar pasos nuevos mediante un modal con validación y alerta de confirmación.
-
-Las páginas incluyen un enlace para saltar al contenido principal y estilos de foco para navegar con teclado.
+Abre `index.html` directamente en el navegador. No necesita instalar dependencias ni servidor local.
 
 ## Diseño en Figma
 

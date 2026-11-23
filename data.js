@@ -45,5 +45,97 @@ window.ACADEMIC_DATA = {
         done: false
       }
     ]
-  }
+  },
+  agendaEvents: [
+    {
+      id: "ev-1",
+      dayLabel: "MAR",
+      dayNumber: "24",
+      monthLabel: "Noviembre",
+      dateIso: "2026-11-24T16:30",
+      time: "16:30",
+      category: "entrega",
+      categoryLabel: "Entrega",
+      title: "Trabajo 3 - Maqueta web",
+      course: "Interfaz de Usuario",
+      detail: "Entrega final con maqueta funcional y link de Figma.",
+      href: "evaluacion.html",
+      linkText: "Ver detalle"
+    },
+    {
+      id: "ev-2",
+      dayLabel: "JUE",
+      dayNumber: "26",
+      monthLabel: "Noviembre",
+      dateIso: "2026-11-26T10:15",
+      time: "10:15",
+      category: "clase",
+      categoryLabel: "Clase",
+      title: "Patrones de diseño y arquitectura",
+      course: "Construcción de Software",
+      detail: "Revisión de casos prácticos en laboratorio.",
+      href: "",
+      linkText: ""
+    },
+    {
+      id: "ev-3",
+      dayLabel: "VIE",
+      dayNumber: "27",
+      monthLabel: "Noviembre",
+      dateIso: "2026-11-27T12:00",
+      time: "12:00",
+      category: "evaluacion",
+      categoryLabel: "Evaluación",
+      title: "Control de unidad 3",
+      course: "Metodologías y Calidad",
+      detail: "Preguntas sobre pruebas, métricas y aseguramiento de calidad.",
+      href: "",
+      linkText: ""
+    },
+    {
+      id: "ev-4",
+      dayLabel: "LUN",
+      dayNumber: "30",
+      monthLabel: "Noviembre",
+      dateIso: "2026-11-30T14:30",
+      time: "14:30",
+      category: "entrega",
+      categoryLabel: "Entrega",
+      title: "Diagrama de secuencia y clases",
+      course: "Análisis y Diseño OO",
+      detail: "Subir archivo UML corregido en plataforma.",
+      href: "",
+      linkText: ""
+    },
+    {
+      id: "ev-5",
+      dayLabel: "MIE",
+      dayNumber: "02",
+      monthLabel: "Diciembre",
+      dateIso: "2026-12-02T09:00",
+      time: "09:00",
+      category: "clase",
+      categoryLabel: "Clase",
+      title: "Revisión de entregas finales",
+      course: "Interfaz de Usuario",
+      detail: "Presentación breve de la maqueta y decisiones de diseño.",
+      href: "interfaz.html",
+      linkText: "Ir al ramo"
+    },
+    {
+      id: "ev-6",
+      dayLabel: "VIE",
+      dayNumber: "04",
+      monthLabel: "Diciembre",
+      dateIso: "2026-12-04T15:00",
+      time: "15:00",
+      category: "evaluacion",
+      categoryLabel: "Evaluación",
+      title: "Defensa de proyecto semestral",
+      course: "Construcción de Software",
+      detail: "Demo funcional frente a docente.",
+      href: "",
+      linkText: ""
+    }
+  ]
 };

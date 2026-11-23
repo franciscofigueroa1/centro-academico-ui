@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f5fb">
+    <title>Agenda | Centro académico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="data.js" defer></script>
+    <script src="agenda.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#agenda-contenido">Saltar al contenido principal</a>
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="Menú principal">
+        <a class="brand" href="index.html#inicio" aria-label="Centro académico, inicio">
+          <span class="brand-mark" aria-hidden="true">CA</span>
+          <span class="brand-name">Centro académico</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a class="nav-link" href="index.html#inicio">Inicio</a>
+          <a class="nav-link" href="asignaturas.html">Asignaturas</a>
+          <a class="nav-link is-active" href="agenda.html" aria-current="page">Agenda</a>
+        </nav>
+
+        <div class="sidebar-footer" aria-label="Perfil de estudiante">
+          <span class="profile-avatar" aria-hidden="true">F</span>
+          <div class="profile-meta">
+            <span class="profile-name">Francisco</span>
+            <span class="profile-sub">Semestre actual</span>
+          </div>
+        </div>
+      </aside>
+
+      <main id="agenda-contenido" class="page-shell subjects-main" tabindex="-1">
+        <header class="agenda-header">
+          <div>
+            <p class="eyebrow">Calendario académico</p>
+            <h1>Agenda</h1>
+            <p class="subjects-subtitle">Entregas, clases y evaluaciones de las próximas semanas</p>
+          </div>
+          <span id="agenda-total" class="week-badge" aria-live="polite">0 eventos</span>
+        </header>
+
+        <section class="agenda-controls" aria-label="Filtros de agenda">
+          <div class="agenda-search-row">
+            <div class="search-field agenda-search">
+              <label class="sr-only" for="agenda-search">Buscar en agenda</label>
+              <input id="agenda-search" type="search" placeholder="Buscar por título o asignatura" autocomplete="off">
+            </div>
+
+            <div class="agenda-select-wrap">
+              <label class="sr-only" for="agenda-course-filter">Filtrar por asignatura</label>
+              <select id="agenda-course-filter" class="agenda-select">
+                <option value="all">Todas las asignaturas</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="agenda-filters agenda-page-filters" role="group" aria-label="Filtrar por tipo de evento">
+            <button class="agenda-filter" type="button" data-agenda-type="all" aria-pressed="true">Todos</button>
+            <button class="agenda-filter" type="button" data-agenda-type="entrega" aria-pressed="false">Entregas</button>
+            <button class="agenda-filter" type="button" data-agenda-type="clase" aria-pressed="false">Clases</button>
+            <button class="agenda-filter" type="button" data-agenda-type="evaluacion" aria-pressed="false">Evaluaciones</button>
+          </div>
+        </section>
+
+        <section aria-labelledby="agenda-list-title">
+          <h2 id="agenda-list-title" class="sr-only">Lista de eventos</h2>
+          <div id="agenda-list" class="agenda-card-list"></div>
+
+          <div id="agenda-empty" class="empty-state agenda-empty" role="status" hidden>
+            <p>No hay eventos que coincidan con los filtros actuales.</p>
+            <button id="agenda-reset" class="secondary-button" type="button">Limpiar filtros</button>
+          </div>
+        </section>
+
+        <p class="demo-note">Datos cargados dinámicamente desde JavaScript para la maqueta del Trabajo 3.</p>
+      </main>
+    </div>
+  </body>
+</html>
