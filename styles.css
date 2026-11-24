@@ -301,6 +301,80 @@ html[data-theme="dark"] .api-button.is-connected {
   color: var(--muted);
 }
 
+.modal-card-wide {
+  width: min(530px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.api-section {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface-muted);
+}
+
+.api-section h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.api-guide {
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+  font-size: 12px;
+}
+
+.api-guide summary {
+  cursor: pointer;
+  color: var(--violet-dark);
+  font-weight: 600;
+}
+
+.api-guide ol {
+  margin: 8px 0 2px;
+  padding-left: 18px;
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+}
+
+.api-guide a {
+  color: var(--violet-dark);
+  text-decoration: underline;
+}
+
+.chatbot-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chatbot-status-pill {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.chatbot-status-pill.is-online {
+  background: rgba(74, 222, 128, 0.22);
+  color: #dcfce7;
+}
+
+.chatbot-status-pill.is-offline {
+  background: rgba(248, 113, 113, 0.28);
+  color: #fee2e2;
+}
+
+.chatbot-dot.is-offline {
+  background: #f87171;
+}
+
 .page-shell {
   width: min(1120px, 100%);
   margin: 0;

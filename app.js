@@ -1,7 +1,7 @@
 const THEME_KEY = "ca_tema_preferido";
 const CHAT_KEY = "ca_chat_historial";
 const STEPS_KEY = "centro_academico_pasos_trabajo3";
-const API_STATUS_KEY = "ca_api_estado";
+const API_CONFIG_KEY = "ca_apis_config_v2";
 
 function normalizeText(text) {
   return String(text || "")
@@ -9,6 +9,45 @@ function normalizeText(text) {
     .toLocaleLowerCase("es")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
+}
+
+/* Estado compartido de APIs (Canvas + Google Gemini) */
+const DEFAULT_API_CONFIG = {
+  connected: true,
+  canvasUrl: "https://virginiogomez.instructure.com",
+  canvasToken: "canvas_demo_token_activo",
+  geminiKey: "AIzaSy_demo_gemini_activa"
+};
+
+function loadApiConfig() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(API_CONFIG_KEY) || "null");
+    if (raw && typeof raw === "object") {
+      return {
+        connected: Boolean(raw.connected && raw.canvasToken && raw.geminiKey),
+        canvasUrl: raw.canvasUrl || DEFAULT_API_CONFIG.canvasUrl,
+        canvasToken: raw.canvasToken || "",
+        geminiKey: raw.geminiKey || ""
+      };
+    }
+  } catch {
+    // Usar configuracion por defecto
+  }
+  return { ...DEFAULT_API_CONFIG };
+}
+
+function saveApiConfig(config) {
+  try {
+    localStorage.setItem(API_CONFIG_KEY, JSON.stringify(config));
+  } catch {
+    // Ignorar
+  }
+}
+
+let apiConfig = loadApiConfig();
+
+function areApisReady() {
+  return Boolean(apiConfig.connected && apiConfig.canvasToken.trim() && apiConfig.geminiKey.trim());
 }
 
 /* Tema claro / oscuro */
@@ -110,27 +149,35 @@ function initCountdown() {
 
 initCountdown();
 
-/* Boton Configurar API / API funcionando (abajo a la izquierda) */
-function initApiConfig() {
+/* Sincronizar estado visual de APIs en sidebar y asistente */
+function syncApiUi() {
+  const ready = areApisReady();
   const apiBtn = document.querySelector("#api-config-btn");
   const apiLabel = document.querySelector("#api-btn-label");
-  if (!apiBtn || !apiLabel) return;
+  const chatBadge = document.querySelector("#chatbot-api-badge");
+  const chatDot = document.querySelector(".chatbot-dot");
 
-  let isConnected = true;
-  try {
-    const saved = localStorage.getItem(API_STATUS_KEY);
-    if (saved === "disconnected") isConnected = false;
-  } catch {
-    // Por defecto conectada
+  if (apiBtn && apiLabel) {
+    apiBtn.classList.toggle("is-connected", ready);
+    apiBtn.classList.toggle("is-disconnected", !ready);
+    apiLabel.textContent = ready ? "APIs funcionando" : "Configurar APIs";
   }
 
-  function renderApiButton() {
-    apiBtn.classList.toggle("is-connected", isConnected);
-    apiBtn.classList.toggle("is-disconnected", !isConnected);
-    apiLabel.textContent = isConnected ? "API funcionando" : "Configurar API";
+  if (chatBadge) {
+    chatBadge.textContent = ready ? "Gemini activo" : "Sin API";
+    chatBadge.classList.toggle("is-online", ready);
+    chatBadge.classList.toggle("is-offline", !ready);
   }
 
-  renderApiButton();
+  if (chatDot) {
+    chatDot.classList.toggle("is-offline", !ready);
+  }
+}
+
+/* Modal de configuracion de APIs (Canvas + Google Gemini) con guias paso a paso */
+function initApiConfig() {
+  const apiBtn = document.querySelector("#api-config-btn");
+  if (!apiBtn) return;
 
   const modal = document.createElement("div");
   modal.id = "api-modal";
@@ -141,24 +188,56 @@ function initApiConfig() {
   modal.hidden = true;
 
   modal.innerHTML = `
-    <div class="modal-card">
+    <div class="modal-card modal-card-wide">
       <div class="modal-header">
-        <h2 id="api-modal-title">Conexión API Canvas</h2>
+        <h2 id="api-modal-title">Configurar APIs</h2>
         <button id="api-modal-close" class="modal-close" type="button" aria-label="Cerrar ventana">×</button>
       </div>
+
       <form id="api-modal-form" class="modal-form" novalidate>
-        <div class="form-field">
-          <label for="api-url-input">Servidor Canvas</label>
-          <input id="api-url-input" type="url" value="https://virginiogomez.instructure.com" required>
-        </div>
-        <div class="form-field">
-          <label for="api-token-input">Token de acceso</label>
-          <input id="api-token-input" type="password" value="token-academico-activo" placeholder="Pega tu token de Canvas" required>
-        </div>
+        <section class="api-section">
+          <h3>1. API de Canvas (ramos, entregas y notas)</h3>
+          <div class="form-field">
+            <label for="api-url-input">URL de Canvas</label>
+            <input id="api-url-input" type="url" placeholder="https://tu-institucion.instructure.com" required>
+          </div>
+          <div class="form-field">
+            <label for="api-token-input">Token de acceso de Canvas</label>
+            <input id="api-token-input" type="password" placeholder="Pega tu token personal de Canvas" required>
+          </div>
+          <details class="api-guide">
+            <summary>¿Cómo obtener tu token de Canvas?</summary>
+            <ol>
+              <li>Inicia sesión en tu cuenta de Canvas.</li>
+              <li>Abre <strong>Cuenta</strong> en la barra izquierda y entra a <strong>Configuración</strong>.</li>
+              <li>Baja hasta <strong>Integraciones aprobadas</strong> y presiona <strong>+ Nuevo token de acceso</strong>.</li>
+              <li>Escribe un propósito (ej. Centro académico), genera el token, cópialo y pégalo arriba.</li>
+            </ol>
+          </details>
+        </section>
+
+        <section class="api-section">
+          <h3>2. API de Google Gemini (asistente académico)</h3>
+          <div class="form-field">
+            <label for="api-gemini-input">API Key de Google Gemini</label>
+            <input id="api-gemini-input" type="password" placeholder="Pega tu clave AIza..." required>
+          </div>
+          <details class="api-guide">
+            <summary>¿Cómo obtener tu API key de Google Gemini?</summary>
+            <ol>
+              <li>Entra a <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio (aistudio.google.com/apikey)</a> con tu cuenta de Google.</li>
+              <li>Presiona <strong>Create API key</strong> (Crear clave de API).</li>
+              <li>Copia la clave generada y pégala arriba para activar las respuestas del asistente.</li>
+            </ol>
+          </details>
+        </section>
+
+        <p id="api-modal-error" class="field-error" role="alert" hidden></p>
         <p id="api-modal-status" class="api-status-note"></p>
+
         <div class="modal-actions">
           <button id="api-disconnect-btn" class="secondary-button" type="button">Desconectar</button>
-          <button class="primary-button" type="submit">Guardar y activar</button>
+          <button class="primary-button" type="submit">Guardar y activar APIs</button>
         </div>
       </form>
     </div>
@@ -169,19 +248,29 @@ function initApiConfig() {
   const closeBtn = modal.querySelector("#api-modal-close");
   const disconnectBtn = modal.querySelector("#api-disconnect-btn");
   const form = modal.querySelector("#api-modal-form");
+  const urlInput = modal.querySelector("#api-url-input");
   const tokenInput = modal.querySelector("#api-token-input");
+  const geminiInput = modal.querySelector("#api-gemini-input");
+  const errorEl = modal.querySelector("#api-modal-error");
   const statusNote = modal.querySelector("#api-modal-status");
 
   function openApiModal() {
-    statusNote.textContent = isConnected
-      ? "Estado actual: API conectada (en verde)."
-      : "Estado actual: desconectada (en rojo). Guarda para activar.";
+    urlInput.value = apiConfig.canvasUrl || DEFAULT_API_CONFIG.canvasUrl;
+    tokenInput.value = apiConfig.canvasToken || "";
+    geminiInput.value = apiConfig.geminiKey || "";
+    errorEl.hidden = true;
+    errorEl.textContent = "";
+    statusNote.textContent = areApisReady()
+      ? "Estado: Canvas y Google Gemini activos."
+      : "Estado: faltan claves por configurar para activar la sincronización y el asistente.";
     modal.hidden = false;
+    document.body.classList.add("modal-open");
     tokenInput.focus();
   }
 
   function closeApiModal() {
     modal.hidden = true;
+    document.body.classList.remove("modal-open");
     apiBtn.focus();
   }
 
@@ -192,28 +281,48 @@ function initApiConfig() {
     if (event.target === modal) closeApiModal();
   });
 
-  disconnectBtn.addEventListener("click", () => {
-    isConnected = false;
-    try {
-      localStorage.setItem(API_STATUS_KEY, "disconnected");
-    } catch {
-      // Ignorar
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !modal.hidden) {
+      closeApiModal();
     }
-    renderApiButton();
+  });
+
+  disconnectBtn.addEventListener("click", () => {
+    apiConfig = {
+      connected: false,
+      canvasUrl: urlInput.value.trim() || DEFAULT_API_CONFIG.canvasUrl,
+      canvasToken: "",
+      geminiKey: ""
+    };
+    saveApiConfig(apiConfig);
+    syncApiUi();
     closeApiModal();
   });
 
   form.addEventListener("submit", event => {
     event.preventDefault();
-    isConnected = true;
-    try {
-      localStorage.setItem(API_STATUS_KEY, "connected");
-    } catch {
-      // Ignorar
+    const url = urlInput.value.trim();
+    const token = tokenInput.value.trim();
+    const gemini = geminiInput.value.trim();
+
+    if (!url || !token || !gemini) {
+      errorEl.textContent = "Completa la URL de Canvas, el token de Canvas y la API key de Google Gemini.";
+      errorEl.hidden = false;
+      return;
     }
-    renderApiButton();
+
+    apiConfig = {
+      connected: true,
+      canvasUrl: url,
+      canvasToken: token,
+      geminiKey: gemini
+    };
+    saveApiConfig(apiConfig);
+    syncApiUi();
     closeApiModal();
   });
+
+  syncApiUi();
 }
 
 initApiConfig();
@@ -291,10 +400,18 @@ if (scheduleFilters.length && scheduleCells.length) {
 
 /* Chatbot academico flotante con bordes curvos (abierto por defecto) */
 function buildReply(userText) {
+  if (!areApisReady()) {
+    return "Las APIs están desconectadas. Abre el botón «Configurar APIs» abajo a la izquierda para ingresar tu token de Canvas y tu API key de Google Gemini.";
+  }
+
   const q = normalizeText(userText);
   const data = window.ACADEMIC_DATA || {};
   const courses = data.courses ? Object.values(data.courses) : [];
   const events = data.agendaEvents || [];
+
+  if (q.includes("api") || q.includes("gemini") || q.includes("token") || q.includes("canvas")) {
+    return "Ambas APIs (Canvas y Google Gemini) están activas. Si necesitas ver los pasos para obtener tus claves, haz clic en «APIs funcionando» en la barra izquierda.";
+  }
 
   if (q.includes("trabajo 3") || q.includes("paso") || q.includes("checklist") || q.includes("maqueta")) {
     let steps = (data.evaluation && data.evaluation.defaultSteps) || [];
@@ -313,11 +430,11 @@ function buildReply(userText) {
   }
 
   if (q.includes("nota") || q.includes("promedio") || q.includes("aprobar") || q.includes("simulador")) {
-    return "En el Simulador tienes tus 4 ramos: Interfaz y Metodologías están en verde (sobre 5.5), Construcción en amarillo y Análisis y Diseño OO en rojo para priorizar.";
+    return "En el Simulador tienes tus 4 ramos: Interfaz (6.0), Construcción (5.2) y Metodologías (6.1) van en verde, y Análisis y Diseño OO (3.7) en rojo para priorizar la Nota 3.";
   }
 
   if (q.includes("horario") || q.includes("bloque")) {
-    return "En la sección Agenda (abajo de la lista de eventos) tienes tu Horario semanal de lunes a viernes para los 4 ramos.";
+    return "En la pestaña Horario del menú izquierdo tienes tus bloques semanales de lunes a viernes con filtro para resaltar cada ramo.";
   }
 
   if (q.includes("entrega") || q.includes("proxima") || q.includes("plazo") || q.includes("cuando")) {
@@ -332,11 +449,11 @@ function buildReply(userText) {
   }
 
   if (q.includes("ramo") || q.includes("asignatura")) {
-    const list = courses.map(c => `${c.name} (${c.progress}%)`).join(", ");
+    const list = courses.map(c => `${c.name} (Prom ${c.avg})`).join(", ");
     return `Tus 4 asignaturas son: ${list}.`;
   }
 
-  return "Pregúntame por tus próximas entregas, pasos del Trabajo 3, el simulador de los 4 ramos o el horario semanal.";
+  return "Pregúntame por tus notas (N1-N3), próximas entregas, pasos del Trabajo 3, tu horario o cómo configurar las APIs de Canvas y Gemini.";
 }
 
 function initChatbot() {
@@ -347,19 +464,22 @@ function initChatbot() {
   widget.innerHTML = `
     <div id="chatbot-panel" class="chatbot-panel">
       <div class="chatbot-header">
-        <strong>Asistente académico</strong>
+        <div class="chatbot-header-left">
+          <strong>Asistente académico</strong>
+          <span id="chatbot-api-badge" class="chatbot-status-pill is-online">Gemini activo</span>
+        </div>
         <button id="chatbot-close" class="chatbot-min-btn" type="button" aria-label="Minimizar asistente">−</button>
       </div>
       <div class="chatbot-chips" aria-label="Consultas rápidas">
         <button type="button" class="chatbot-chip" data-prompt="¿Qué falta del Trabajo 3?">Trabajo 3</button>
-        <button type="button" class="chatbot-chip" data-prompt="¿Cómo voy en notas?">Simulador</button>
+        <button type="button" class="chatbot-chip" data-prompt="¿Cómo voy en notas?">Notas</button>
         <button type="button" class="chatbot-chip" data-prompt="¿Cuál es la próxima entrega?">Entregas</button>
         <button type="button" class="chatbot-chip" data-prompt="Ver horario semanal">Horario</button>
       </div>
       <div id="chatbot-messages" class="chatbot-messages" aria-live="polite"></div>
       <form id="chatbot-form" class="chatbot-form">
         <label class="sr-only" for="chatbot-input">Escribe tu consulta</label>
-        <input id="chatbot-input" type="text" placeholder="Pregunta por notas, entregas o pasos" autocomplete="off">
+        <input id="chatbot-input" type="text" placeholder="Pregunta por notas, entregas o horario" autocomplete="off">
         <button type="submit" class="primary-button chatbot-send">Enviar</button>
       </form>
     </div>
@@ -370,6 +490,7 @@ function initChatbot() {
   `;
 
   document.body.append(widget);
+  syncApiUi();
 
   const toggleBtn = widget.querySelector("#chatbot-toggle");
   const closeBtn = widget.querySelector("#chatbot-close");
@@ -380,7 +501,7 @@ function initChatbot() {
   const chips = [...widget.querySelectorAll(".chatbot-chip")];
 
   let history = [
-    { role: "bot", text: "Hola Francisco. Pregúntame por el temporizador del Trabajo 3, tus 4 ramos en el simulador o tu horario." }
+    { role: "bot", text: "Hola Francisco. Con Canvas y Gemini conectados puedo revisar tus notas, entregas, pasos del Trabajo 3 y horario." }
   ];
 
   try {
